@@ -1,0 +1,1050 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap");
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html {
+    background: #2a1a08;
+  }
+  body {
+    background: #2a1a08;
+    margin: 0;
+    padding: 0;
+  }
+  .desk {
+    width: 100%;
+    height: 560px;
+    background: #2a1a08;
+    position: relative;
+    overflow: hidden;
+    font-family: "Courier Prime", monospace;
+    user-select: none;
+  }
+  .clickable {
+    cursor: pointer;
+    transition: filter 0.12s;
+    position: absolute;
+  }
+  .clickable:hover {
+    filter: brightness(1.18);
+  }
+  .clickable:active {
+    filter: brightness(0.9);
+  }
+  .folder {
+    width: 120px;
+    background: #c8a84b;
+    border: 2px solid #8b6914;
+    border-radius: 3px 3px 2px 2px;
+  }
+  .folder-tab {
+    background: #a07810;
+    height: 16px;
+    border-radius: 2px 2px 0 0;
+    display: flex;
+    align-items: center;
+    padding: 0 7px;
+    font-family: "Special Elite", serif;
+    font-size: 8px;
+    color: #fff0c0;
+    letter-spacing: 1px;
+  }
+  .folder-body {
+    background: #d4aa50;
+    padding: 8px 8px 10px;
+    border-top: 1px solid #8b6914;
+  }
+  .fline {
+    background: #b88820;
+    height: 4px;
+    border-radius: 1px;
+    margin-bottom: 4px;
+  }
+  .flbl {
+    font-family: "Special Elite", serif;
+    font-size: 10px;
+    color: #3a1a00;
+    line-height: 1.3;
+  }
+  .fsub {
+    font-size: 8px;
+    color: #7a5010;
+    margin-top: 2px;
+  }
+  .box-outer {
+    position: absolute;
+    cursor: pointer;
+    width: 100px;
+    height: 68px;
+    transition: filter 0.12s;
+  }
+  .box-outer:hover {
+    filter: brightness(1.18);
+  }
+  .box-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: #8b7355;
+    border: 2px solid #5a4020;
+    border-radius: 0 0 3px 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .box-lid-el {
+    position: absolute;
+    top: 0;
+    left: -1px;
+    right: -1px;
+    height: 20px;
+    background: #a08060;
+    border: 2px solid #5a4020;
+    border-radius: 3px;
+    transform-origin: 50% 100%;
+    transition: transform 0.5s ease;
+    z-index: 2;
+  }
+  .blbl {
+    font-family: "Special Elite", serif;
+    font-size: 8px;
+    color: #f0d890;
+    letter-spacing: 1px;
+    margin-top: 14px;
+  }
+  .bsub {
+    font-size: 7px;
+    color: #c0a060;
+    margin-top: 1px;
+  }
+  .book-wrap {
+    width: 88px;
+    height: 72px;
+    background: #5a2810;
+    border: 2px solid #3a1808;
+    border-radius: 4px 2px 2px 4px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .book-spine {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 13px;
+    background: #3a1808;
+    border-radius: 3px 0 0 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .book-spine-txt {
+    font-family: "Special Elite", serif;
+    font-size: 6px;
+    color: #c8905a;
+    writing-mode: vertical-rl;
+    letter-spacing: 2px;
+  }
+  .book-cover-txt {
+    font-family: "Special Elite", serif;
+    font-size: 8px;
+    color: #f0c880;
+    text-align: center;
+    line-height: 1.4;
+    margin-left: 10px;
+  }
+  .panel {
+    position: absolute;
+    z-index: 30;
+    border: 2px solid #8b6010;
+    border-radius: 3px;
+    background: #f0e8cc;
+  }
+  .ph {
+    background: #6b4a08;
+    color: #f5e0a0;
+    font-family: "Special Elite", serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    padding: 5px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 2px 2px 0 0;
+  }
+  .px {
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1;
+    color: #f5e0a0;
+  }
+  .pb {
+    padding: 10px 12px;
+    font-size: 9px;
+    color: #1a0800;
+    line-height: 1.9;
+    font-family: "Courier Prime", monospace;
+  }
+  .pfl {
+    font-size: 7px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #7a4a08;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+  .pfv {
+    font-size: 10px;
+    color: #1a0800;
+  }
+  .stamp {
+    position: absolute;
+    right: 8px;
+    top: 28px;
+    border: 2px solid #c0392b;
+    color: #c0392b;
+    font-size: 7px;
+    font-family: "Special Elite", serif;
+    padding: 2px 4px;
+    transform: rotate(7deg);
+    opacity: 0.65;
+    letter-spacing: 1px;
+  }
+  .book-panel {
+    position: absolute;
+    z-index: 30;
+    border: 2px solid #7a5a20;
+    border-radius: 3px;
+    background: #e8ddb8;
+    display: flex;
+    flex-direction: column;
+    min-width: 340px;
+    min-height: 200px;
+  }
+  .drag-handle {
+    background: #5a3a10;
+    color: #f0d080;
+    font-family: "Special Elite", serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    padding: 5px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 2px 2px 0 0;
+    cursor: grab;
+    flex-shrink: 0;
+  }
+  .drag-handle:active {
+    cursor: grabbing;
+  }
+  .drag-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #f0d080;
+    opacity: 0.6;
+  }
+  .bp-cols {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+  .bp-left {
+    width: 130px;
+    background: #ddd0a0;
+    border-right: 3px solid #7a5a20;
+    flex-shrink: 0;
+    overflow-y: auto;
+  }
+  /* taxonomy tree */
+  .tax-order {
+    padding: 6px 8px 4px;
+    border-bottom: 1px solid #b09060;
+  }
+  .tax-order-hd {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .tax-order-hd:hover .tax-name {
+    color: #3a1000;
+  }
+  .tax-arrow {
+    font-size: 8px;
+    color: #8a6020;
+    transition: transform 0.15s;
+    flex-shrink: 0;
+  }
+  .tax-arrow.open {
+    transform: rotate(90deg);
+  }
+  .tax-name {
+    font-family: "Special Elite", serif;
+    font-size: 9px;
+    color: #4a2000;
+    font-weight: bold;
+    line-height: 1.3;
+  }
+  .tax-latin-sm {
+    font-size: 6px;
+    color: #9a7040;
+    font-style: italic;
+    display: block;
+    margin-left: 14px;
+    margin-bottom: 2px;
+  }
+  .tax-family-list {
+    margin-left: 8px;
+    display: none;
+  }
+  .tax-family-list.open {
+    display: block;
+  }
+  .tax-family {
+    padding: 3px 6px 3px 0;
+    border-bottom: 1px solid #c8b070;
+  }
+  .tax-family:last-child {
+    border-bottom: none;
+  }
+  .tax-family-hd {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .tax-family-hd:hover .tax-fname {
+    color: #3a1000;
+  }
+  .tax-fname {
+    font-family: "Special Elite", serif;
+    font-size: 8px;
+    color: #5a3010;
+    line-height: 1.4;
+  }
+  .tax-flatin {
+    font-size: 6px;
+    color: #9a7040;
+    font-style: italic;
+    display: block;
+    margin-left: 14px;
+    margin-bottom: 2px;
+  }
+  .tax-genus-list {
+    margin-left: 8px;
+    display: none;
+  }
+  .tax-genus-list.open {
+    display: block;
+  }
+  .genus-item {
+    padding: 4px 6px;
+    cursor: pointer;
+    border-bottom: 1px solid #c8b070;
+    transition: background 0.1s;
+  }
+  .genus-item:last-child {
+    border-bottom: none;
+  }
+  .genus-item:hover {
+    background: #cfc090;
+  }
+  .genus-item.act {
+    background: #5a3010;
+  }
+  .genus-item .gi-name {
+    font-family: "Special Elite", serif;
+    font-size: 8px;
+    color: #3a1800;
+    display: block;
+    line-height: 1.3;
+  }
+  .genus-item .gi-latin {
+    font-size: 6.5px;
+    color: #7a5020;
+    font-style: italic;
+    display: block;
+    margin-top: 1px;
+  }
+  .genus-item.act .gi-name {
+    color: #f0d890;
+  }
+  .genus-item.act .gi-latin {
+    color: #c0a060;
+  }
+  /* empty family placeholder */
+  .tax-empty {
+    font-size: 7px;
+    color: #a08050;
+    font-style: italic;
+    padding: 3px 6px;
+    line-height: 1.4;
+  }
+  /* right panel */
+  .bp-right {
+    flex: 1;
+    padding: 10px 12px;
+    background: #f0e8cc;
+    overflow-y: auto;
+    min-width: 0;
+  }
+  .en {
+    font-family: "Special Elite", serif;
+    font-size: 12px;
+    color: #3a1800;
+    font-weight: bold;
+    margin-bottom: 2px;
+  }
+  .el {
+    font-size: 8px;
+    color: #7a5020;
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+  .eb {
+    font-size: 9px;
+    color: #1a0800;
+    line-height: 1.85;
+  }
+  .ediv {
+    border: none;
+    border-top: 1px dashed #a08040;
+    margin: 5px 0;
+  }
+  /* resize handle */
+  .bp-resize {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 12px;
+    height: 12px;
+    cursor: se-resize;
+    z-index: 5;
+  }
+  .bp-resize::after {
+    content: "";
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid #8a6030;
+    border-bottom: 2px solid #8a6030;
+    opacity: 0.6;
+  }
+  .spec-card {
+    position: absolute;
+    left: 3%;
+    top: 52%;
+    z-index: 20;
+    background: #d0c89a;
+    border: 2px solid #9a8850;
+    border-radius: 4px;
+    width: 118px;
+    padding: 8px;
+    text-align: center;
+    display: none;
+  }
+  .hint-bar {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 8px;
+    color: #8b6030;
+    font-family: "Special Elite", serif;
+    letter-spacing: 1px;
+    pointer-events: none;
+  }
+</style>
+
+<div class="desk" id="desk">
+  <div
+    class="clickable"
+    style="top: 30px; left: 3%; width: 80px; text-align: center"
+    onclick="togglePanel('fp')"
+  >
+    <svg
+      version="1.0"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      width="72"
+      height="72"
+      viewBox="0 0 64 64"
+      xml:space="preserve"
+      fill="#000000"
+    >
+      <g id="SVGRepo_iconCarrier">
+        <g>
+          <path
+            fill="#F9EBB2"
+            d="M6,42h13c0.553,0,1,0.447,1,1v5h24v-5c0-0.553,0.447-1,1-1h13V6H6V42z"
+          />
+          <g>
+            <path
+              fill="#746b58"
+              d="M60,2h-1H5H4C2.896,2,2,2.896,2,4v56c0,1.104,0.896,2,2,2h56c1.104,0,2-0.896,2-2V4 C62,2.896,61.104,2,60,2z M60,43c0,0.553-0.447,1-1,1H46v5c0,0.553-0.447,1-1,1H19c-0.553,0-1-0.447-1-1v-5H5 c-0.553,0-1-0.447-1-1V5c0-0.553,0.447-1,1-1h54c0.553,0,1,0.447,1,1V43z"
+            />
+          </g>
+          <g>
+            <path
+              fill="#394240"
+              d="M60,0H4C1.789,0,0,1.789,0,4v56c0,2.211,1.789,4,4,4h56c2.211,0,4-1.789,4-4V4C64,1.789,62.211,0,60,0z M62,60c0,1.104-0.896,2-2,2H4c-1.104,0-2-0.896-2-2V4c0-1.104,0.896-2,2-2h56c1.104,0,2,0.896,2,2V60z"
+            />
+            <path
+              fill="#394240"
+              d="M59,4H5C4.447,4,4,4.447,4,5v38c0,0.553,0.447,1,1,1h13v5c0,0.553,0.447,1,1,1h26c0.553,0,1-0.447,1-1v-5 h13c0.553,0,1-0.447,1-1V5C60,4.447,59.553,4,59,4z M58,42H45c-0.553,0-1,0.447-1,1v5H20v-5c0-0.553-0.447-1-1-1H6V6h52V42z"
+            />
+            <path
+              fill="#394240"
+              d="M15,16h34c0.553,0,1-0.447,1-1s-0.447-1-1-1H15c-0.553,0-1,0.447-1,1S14.447,16,15,16z"
+            />
+            <path
+              fill="#394240"
+              d="M15,28h34c0.553,0,1-0.447,1-1s-0.447-1-1-1H15c-0.553,0-1,0.447-1,1S14.447,28,15,28z"
+            />
+            <path
+              fill="#394240"
+              d="M15,34h34c0.553,0,1-0.447,1-1s-0.447-1-1-1H15c-0.553,0-1,0.447-1,1S14.447,34,15,34z"
+            />
+            <path
+              fill="#394240"
+              d="M15,22h34c0.553,0,1-0.447,1-1s-0.447-1-1-1H15c-0.553,0-1,0.447-1,1S14.447,22,15,22z"
+            />
+          </g>
+        </g>
+      </g>
+    </svg>
+    <div
+      style="
+        font-family: &quot;Special Elite&quot;, serif;
+        font-size: 9px;
+        color: #f0d890;
+        margin-top: 4px;
+        letter-spacing: 1px;
+      "
+    >
+      案件档案
+    </div>
+    <div style="font-size: 8px; color: #c0a060; margin-top: 1px">点击查看</div>
+  </div>
+
+  <div
+    class="box-outer"
+    style="top: 40px; left: calc(50% - 50px)"
+    id="box-item"
+    onclick="openBox()"
+  >
+    <div class="box-lid-el" id="box-lid"></div>
+    <div class="box-body">
+      <div class="blbl">证物 #7</div>
+      <div class="bsub">点击开盒</div>
+    </div>
+  </div>
+
+  <div
+    class="clickable"
+    style="top: 30px; width: 80px; text-align: center"
+    id="book-obj"
+    onclick="togglePanel('bp')"
+  >
+    <svg
+      version="1.0"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      width="72"
+      height="72"
+      viewBox="0 0 64 64"
+      xml:space="preserve"
+      fill="#000000"
+    >
+      <g id="SVGRepo_iconCarrier">
+        <g>
+          <path
+            fill="#F9EBB2"
+            d="M56,62H10c-2.209,0-4-1.791-4-4s1.791-4,4-4h46V62z"
+          />
+          <g>
+            <path
+              fill="#b94646"
+              d="M6,4v49.537C7.062,52.584,8.461,52,10,52h2V2H8C6.896,2,6,2.896,6,4z"
+            />
+            <path
+              fill="#b94646"
+              d="M56,2H14v50h42h2v-2V4C58,2.896,57.104,2,56,2z"
+            />
+          </g>
+          <g>
+            <path
+              fill="#394240"
+              d="M60,52V4c0-2.211-1.789-4-4-4H8C5.789,0,4,1.789,4,4v54c0,3.313,2.687,6,6,6h49c0.553,0,1-0.447,1-1 s-0.447-1-1-1h-1v-8C59.104,54,60,53.104,60,52z M6,4c0-1.104,0.896-2,2-2h4v50h-2c-1.539,0-2.938,0.584-4,1.537V4z M56,62H10 c-2.209,0-4-1.791-4-4s1.791-4,4-4h46V62z M56,52H14V2h42c1.104,0,2,0.896,2,2v46v2H56z"
+            />
+            <path
+              fill="#394240"
+              d="M43,26H23c-0.553,0-1,0.447-1,1s0.447,1,1,1h20c0.553,0,1-0.447,1-1S43.553,26,43,26z"
+            />
+            <path
+              fill="#394240"
+              d="M49,20H23c-0.553,0-1,0.447-1,1s0.447,1,1,1h26c0.553,0,1-0.447,1-1S49.553,20,49,20z"
+            />
+            <path
+              fill="#394240"
+              d="M23,16h12c0.553,0,1-0.447,1-1s-0.447-1-1-1H23c-0.553,0-1,0.447-1,1S22.447,16,23,16z"
+            />
+          </g>
+          <path
+            opacity="0.2"
+            fill="#231F20"
+            d="M6,4v49.537C7.062,52.584,8.461,52,10,52h2V2H8C6.896,2,6,2.896,6,4z"
+          />
+        </g>
+      </g>
+    </svg>
+    <div
+      style="
+        font-family: &quot;Special Elite&quot;, serif;
+        font-size: 9px;
+        color: #f0d890;
+        margin-top: 4px;
+        letter-spacing: 1px;
+      "
+    >
+      昆虫图鉴
+    </div>
+    <div style="font-size: 8px; color: #c0a060; margin-top: 1px">点击查看</div>
+  </div>
+
+  <div
+    class="panel"
+    id="fp"
+    style="display: none; top: 24px; left: 3%; width: 210px"
+  >
+    <div class="ph">
+      案件档案 <span class="px" onclick="togglePanel('fp')">✕</span>
+    </div>
+    <div class="pb" style="position: relative">
+      <div class="stamp">机密</div>
+      <div class="pfl">案件编号</div>
+      <div class="pfv">2024-0611-HOM</div>
+      <div class="pfl">发现时间</div>
+      <div class="pfv">2024.06.11 &nbsp;09:32</div>
+      <div class="pfl">发现地点</div>
+      <div class="pfv">废弃仓库 · 室内东角</div>
+      <div class="pfl">尸体状态</div>
+      <div class="pfv">膨胀期 · 腐败气味明显</div>
+      <div class="pfl">遮蔽情况</div>
+      <div class="pfv">室内封闭 · 无直接光照</div>
+      <div class="pfl">气象记录</div>
+      <div class="pfv">市区站 日均温约 26°C</div>
+      <div class="pfl">昆虫标本</div>
+      <div class="pfv">证物盒 #7 → 见标本</div>
+    </div>
+  </div>
+
+  <div
+    class="book-panel"
+    id="bp"
+    style="display: none; top: 24px; left: 60%; width: 380px; height: 320px"
+  >
+    <div class="drag-handle" id="bp-handle">
+      <div style="display: flex; align-items: center; gap: 8px">
+        <div style="display: flex; gap: 3px">
+          <div class="drag-dot"></div>
+          <div class="drag-dot"></div>
+          <div class="drag-dot"></div>
+          <div class="drag-dot"></div>
+          <div class="drag-dot"></div>
+          <div class="drag-dot"></div>
+        </div>
+        昆虫图鉴
+      </div>
+      <span class="px" onclick="togglePanel('bp')">✕</span>
+    </div>
+    <div class="bp-cols">
+      <div class="bp-left" id="bp-tree"></div>
+      <div class="bp-right" id="bp-content">
+        <div
+          style="
+            color: #9a7840;
+            font-family: &quot;Special Elite&quot;, serif;
+            font-size: 9px;
+            margin-top: 20px;
+            text-align: center;
+            line-height: 2;
+          "
+        >
+          请从左侧<br />选择分类
+        </div>
+      </div>
+    </div>
+    <div class="bp-resize" id="bp-resize"></div>
+  </div>
+
+  <div class="spec-card" id="spec-card">
+    <div
+      style="
+        font-size: 7px;
+        font-family: &quot;Special Elite&quot;, serif;
+        color: #6b4010;
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+      "
+    >
+      标本 #7
+    </div>
+    <div style="font-size: 50px; line-height: 1.1">🪰</div>
+    <div
+      style="
+        font-size: 8px;
+        color: #3a1800;
+        margin-top: 5px;
+        line-height: 1.6;
+        font-family: &quot;Courier Prime&quot;, monospace;
+      "
+    >
+      幼虫阶段<br />体长约 12mm
+    </div>
+  </div>
+
+  <div class="hint-bar" id="hint">← 点击桌面物品开始检验 →</div>
+</div>
+
+<!-- 昆虫图鉴数据（来源：insect-atlas-data.js，在服务器环境下可改为外部引用） -->
+<script>
+  // ══════════════════════════════════════════════════════
+  //  insect-atlas-data.js  ·  法医昆虫图鉴数据
+  //  结构：目 > 科 > 属（最小单位）> 种（可选）
+  // ══════════════════════════════════════════════════════
+  const INSECT_ATLAS = [
+    {
+      id: "diptera",
+      order: "双翅目",
+      latin: "Diptera",
+      families: [
+        {
+          id: "calliphoridae",
+          family: "丽蝇科",
+          latin: "Calliphoridae",
+          genera: [
+            {
+              id: "lucilia",
+              genus: "丝光绿蝇属",
+              latin: "Lucilia",
+              species: [], // 待补充
+              entry: {
+                name: "丝光绿蝇",
+                latin: "Lucilia sericata",
+                body: `<b>体型：</b>8–10 mm，金属绿色光泽<br><b>触角：</b>三节型，羽状刚毛<br><b>复眼：</b>雄宽接眼，雌离眼<hr class="ediv"><b>法医意义：</b><br>最常见先驱物种。死后 1–4h 内产卵于天然开口（眼、口、伤口）。<hr class="ediv"><b>发育时间（25°C）：</b><br>卵 12h · 一龄 18h · 二龄 24h<br>三龄 72h · 蛹 168h · 羽化 336h<br><b>最低发育温度：</b>10°C`,
+              },
+            },
+          ],
+        },
+        {
+          id: "sarcophagidae",
+          family: "麻蝇科",
+          latin: "Sarcophagidae",
+          genera: [
+            {
+              id: "sarcophaga",
+              genus: "麻蝇属",
+              latin: "Sarcophaga",
+              species: [],
+              entry: {
+                name: "麻蝇",
+                latin: "Sarcophaga spp.",
+                body: `<b>体型：</b>10–15 mm，灰黑色<br><b>胸部：</b>三条纵行暗纹<br><b>腹部：</b>棋盘纹，末端红色<hr class="ediv"><b>法医意义：</b><br>卵胎生，直接产活幼虫。到达略慢于绿蝇，可交叉验证 PMI。<hr class="ediv"><b>发育时间（25°C）：</b><br>幼虫产出 6h · 一龄 24h · 二龄 48h<br>三龄 96h · 蛹 192h · 羽化 384h<br><b>最低发育温度：</b>12°C`,
+              },
+            },
+          ],
+        },
+        {
+          id: "muscidae",
+          family: "蝇科",
+          latin: "Muscidae",
+          genera: [], // 待补充
+        },
+      ],
+    },
+    {
+      id: "coleoptera",
+      order: "鞘翅目",
+      latin: "Coleoptera",
+      families: [
+        {
+          id: "dermestidae",
+          family: "皮蠹科",
+          latin: "Dermestidae",
+          genera: [
+            {
+              id: "dermestes",
+              genus: "皮蠹属",
+              latin: "Dermestes",
+              species: [],
+              entry: {
+                name: "皮蠹",
+                latin: "Dermestes maculatus",
+                body: `<b>体型：</b>6–10 mm，深褐色，椭圆形<br><b>特征：</b>全身密布鳞毛，幼虫多毛<hr class="ediv"><b>法医意义：</b><br>干燥腐败期演替物种，专食角质与骨骼周围残余软组织。<hr class="ediv"><b>发育时间（25°C）：</b><br>卵 3–5 天 · 幼虫期 40–50 天<br>蛹 8–15 天<br><b>最低发育温度：</b>15°C`,
+              },
+            },
+          ],
+        },
+        {
+          id: "trogidae",
+          family: "郭公甲科",
+          latin: "Trogidae",
+          genera: [],
+        },
+        {
+          id: "silphidae",
+          family: "埋葬甲科",
+          latin: "Silphidae",
+          genera: [],
+        },
+        {
+          id: "histeridae",
+          family: "阎甲科",
+          latin: "Histeridae",
+          genera: [],
+        },
+        {
+          id: "staphylinidae",
+          family: "隐翅甲科",
+          latin: "Staphylinidae",
+          genera: [
+            {
+              id: "creophilus",
+              genus: "隐翅虫属",
+              latin: "Creophilus",
+              species: [],
+              entry: {
+                name: "隐翅虫",
+                latin: "Creophilus spp.",
+                body: `<b>体型：</b>15–22 mm，黑色，捕食性<br><b>鞘翅：</b>灰色绒毛斑纹<hr class="ediv"><b>法医意义：</b><br>捕食蝇幼虫。出现提示尸体已存在数天以上，本身不作 PMI 直接指标。<hr class="ediv"><b>发育时间（25°C）：</b><br>卵 72h · 一龄 120h · 二龄 240h<br>三龄 480h · 蛹 720h · 羽化 1200h<br><b>最低发育温度：</b>14°C`,
+              },
+            },
+          ],
+        },
+        {
+          id: "nitidulidae",
+          family: "露尾甲科",
+          latin: "Nitidulidae",
+          genera: [],
+        },
+      ],
+    },
+  ];
+  // ══════════════════════════════════════════════════════
+</script>
+<script>
+  // ── 渲染分类树 ──────────────────────────────────────────
+  function buildTree() {
+    const tree = document.getElementById("bp-tree");
+    tree.innerHTML = "";
+    INSECT_ATLAS.forEach((order) => {
+      const orderDiv = document.createElement("div");
+      orderDiv.className = "tax-order";
+
+      const hd = document.createElement("div");
+      hd.className = "tax-order-hd";
+      hd.innerHTML = `<span class="tax-arrow">▶</span><span class="tax-name">${order.order}</span>`;
+      orderDiv.appendChild(hd);
+
+      const latinSpan = document.createElement("span");
+      latinSpan.className = "tax-latin-sm";
+      latinSpan.textContent = order.latin;
+      orderDiv.appendChild(latinSpan);
+
+      const familyList = document.createElement("div");
+      familyList.className = "tax-family-list";
+
+      order.families.forEach((fam) => {
+        const famDiv = document.createElement("div");
+        famDiv.className = "tax-family";
+
+        const famHd = document.createElement("div");
+        famHd.className = "tax-family-hd";
+        famHd.innerHTML = `<span class="tax-arrow">▶</span><span class="tax-fname">${fam.family}</span>`;
+        famDiv.appendChild(famHd);
+
+        const famLatin = document.createElement("span");
+        famLatin.className = "tax-flatin";
+        famLatin.textContent = fam.latin;
+        famDiv.appendChild(famLatin);
+
+        const genusList = document.createElement("div");
+        genusList.className = "tax-genus-list";
+
+        if (!fam.genera || fam.genera.length === 0) {
+          genusList.innerHTML = '<div class="tax-empty">（待补充）</div>';
+        } else {
+          fam.genera.forEach((genus) => {
+            const gi = document.createElement("div");
+            gi.className = "genus-item";
+            gi.innerHTML = `<span class="gi-name">${genus.genus}</span><span class="gi-latin">${genus.latin}</span>`;
+            gi.addEventListener("click", () => {
+              document
+                .querySelectorAll(".genus-item")
+                .forEach((x) => x.classList.remove("act"));
+              gi.classList.add("act");
+              if (genus.entry) renderEntry(genus.entry);
+              else showEmpty(genus.genus);
+            });
+            genusList.appendChild(gi);
+          });
+        }
+
+        famDiv.appendChild(genusList);
+
+        famHd.addEventListener("click", () => {
+          const arr = famHd.querySelector(".tax-arrow");
+          const open = genusList.classList.toggle("open");
+          arr.classList.toggle("open", open);
+        });
+
+        famDiv.appendChild(genusList);
+        familyList.appendChild(famDiv);
+      });
+
+      orderDiv.appendChild(familyList);
+
+      hd.addEventListener("click", () => {
+        const arr = hd.querySelector(".tax-arrow");
+        const open = familyList.classList.toggle("open");
+        arr.classList.toggle("open", open);
+      });
+
+      tree.appendChild(orderDiv);
+    });
+  }
+
+  function renderEntry(e) {
+    document.getElementById("bp-content").innerHTML =
+      `<div class="en">${e.name}</div><div class="el">${e.latin}</div>
+     <div class="eb" style="margin-top:8px">${e.body}</div>`;
+  }
+
+  function showEmpty(name) {
+    document.getElementById("bp-content").innerHTML =
+      `<div class="en">${name}</div>
+     <div style="color:#9a7840;font-family:'Special Elite',serif;font-size:9px;margin-top:16px;line-height:2">（种级数据待补充）</div>`;
+  }
+
+  // ── 面板开关 ────────────────────────────────────────────
+  let boxOpen = false;
+
+  function positionBook() {
+    const desk = document.getElementById("desk");
+    const book = document.getElementById("book-obj");
+    book.style.left =
+      desk.offsetWidth - 80 - Math.round(desk.offsetWidth * 0.03) + "px";
+  }
+  positionBook();
+  window.addEventListener("resize", positionBook);
+
+  function togglePanel(id) {
+    const el = document.getElementById(id);
+    const show = el.style.display === "none";
+    el.style.display = show ? "flex" : "none";
+    if (show) {
+      document.getElementById("hint").style.display = "none";
+      if (id === "bp") buildTree();
+    }
+  }
+
+  function openBox() {
+    if (boxOpen) return;
+    boxOpen = true;
+    const bi = document.getElementById("box-item");
+    bi.style.cursor = "default";
+    bi.onclick = null;
+    document.getElementById("box-lid").style.transform =
+      "rotateX(-120deg) translateY(-6px)";
+    setTimeout(() => {
+      document.getElementById("spec-card").style.display = "block";
+      document.getElementById("hint").style.display = "none";
+    }, 560);
+  }
+
+  // ── 图鉴拖动 ────────────────────────────────────────────
+  (function () {
+    const panel = document.getElementById("bp");
+    const handle = document.getElementById("bp-handle");
+    const desk = document.getElementById("desk");
+    let dragging = false,
+      ox = 0,
+      oy = 0;
+    handle.addEventListener("mousedown", function (e) {
+      if (e.target.classList.contains("px")) return;
+      dragging = true;
+      const r = panel.getBoundingClientRect();
+      const dr = desk.getBoundingClientRect();
+      ox = e.clientX - (r.left - dr.left);
+      oy = e.clientY - (r.top - dr.top);
+      panel.style.zIndex = 40;
+      e.preventDefault();
+    });
+    document.addEventListener("mousemove", function (e) {
+      if (!dragging) return;
+      const dr = desk.getBoundingClientRect();
+      let nx = e.clientX - dr.left - ox;
+      let ny = e.clientY - dr.top - oy;
+      nx = Math.max(0, Math.min(nx, dr.width - panel.offsetWidth));
+      ny = Math.max(0, Math.min(ny, dr.height - panel.offsetHeight));
+      panel.style.left = nx + "px";
+      panel.style.top = ny + "px";
+      panel.style.right = "auto";
+    });
+    document.addEventListener("mouseup", function () {
+      dragging = false;
+      panel.style.zIndex = 30;
+    });
+  })();
+
+  // ── 图鉴调整大小 ─────────────────────────────────────────
+  (function () {
+    const panel = document.getElementById("bp");
+    const resizer = document.getElementById("bp-resize");
+    const desk = document.getElementById("desk");
+    let resizing = false,
+      startX,
+      startY,
+      startW,
+      startH;
+    resizer.addEventListener("mousedown", function (e) {
+      resizing = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      startW = panel.offsetWidth;
+      startH = panel.offsetHeight;
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    document.addEventListener("mousemove", function (e) {
+      if (!resizing) return;
+      const dr = desk.getBoundingClientRect();
+      const panelLeft = panel.getBoundingClientRect().left - dr.left;
+      const panelTop = panel.getBoundingClientRect().top - dr.top;
+      let nw = startW + (e.clientX - startX);
+      let nh = startH + (e.clientY - startY);
+      nw = Math.max(340, Math.min(nw, dr.width - panelLeft));
+      nh = Math.max(200, Math.min(nh, dr.height - panelTop));
+      panel.style.width = nw + "px";
+      panel.style.height = nh + "px";
+    });
+    document.addEventListener("mouseup", function () {
+      resizing = false;
+    });
+  })();
+</script>

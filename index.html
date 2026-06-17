@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>蛆虫侦探：法医昆虫学模拟器</title>
+    <style>
+      @font-face {
+        font-family: "PixelFont";
+        src: local("Press Start 2P");
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #000;
+        font-family: "PixelFont", "Microsoft YaHei", monospace, sans-serif;
+      }
+
+      .screen {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        background-image: url("ui/title.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        image-rendering: pixelated;
+      }
+
+      /* 标题区域：屏幕上方 */
+      .title-area {
+        position: absolute;
+        left: 50%;
+        top: 18%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        z-index: 10;
+      }
+
+      .title-area img {
+        display: block;
+        image-rendering: pixelated;
+        width: 600px;
+        height: auto;
+      }
+
+      .subtitle {
+        color: #f5f1e6; /* 米白色 */
+        text-shadow:
+          2px 2px 0 #000,
+          -1px -1px 0 #000,
+          1px -1px 0 #000,
+          -1px 1px 0 #000;
+        font-size: 30px;
+        letter-spacing: 2px;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      /* 按钮容器：屏幕中间偏下 */
+      .menu {
+        position: absolute;
+        left: 50%;
+        top: 64%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        z-index: 10;
+      }
+
+      .pixel-btn {
+        position: relative;
+        display: inline-block;
+        padding: 0;
+        background: none;
+        border: none;
+        cursor: pointer;
+        user-select: none;
+        image-rendering: pixelated;
+        transition: transform 0.06s ease, filter 0.06s ease;
+      }
+
+      .pixel-btn img {
+        display: block;
+        image-rendering: pixelated;
+        pointer-events: none;
+      }
+
+      .pixel-btn:hover {
+        transform: translate(-2px, -2px);
+        filter: brightness(1.15) drop-shadow(2px 2px 0 #000);
+      }
+
+      .pixel-btn:active {
+        transform: translate(2px, 2px);
+        filter: brightness(0.95);
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="screen">
+      <!-- 标题区：大标题图 + 小标题文字 -->
+      <div class="title-area">
+        <img id="title-img" src="ui/cn.png" alt="标题" />
+        <div class="subtitle" id="subtitle">法医昆虫学模拟器</div>
+      </div>
+
+      <!-- 主菜单：中间偏下，4个按钮 -->
+      <div class="menu">
+        <button class="pixel-btn" id="btn-study" type="button">
+          <img src="ui/learn.png" alt="学习模式" />
+        </button>
+
+        <button class="pixel-btn" id="btn-work" type="button">
+          <img src="ui/work.png" alt="工作模式" />
+        </button>
+
+        <button class="pixel-btn" id="btn-continue" type="button">
+          <img src="ui/continue.png" alt="继续游戏" />
+        </button>
+
+        <button class="pixel-btn" id="btn-lang" type="button">
+          <img src="ui/lang.png" alt="语言 / Language" />
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // 语言配置：大标题除中文外一律用 en.png，小标题按语言切换
+      const LANGUAGES = {
+        zh: { titleImg: "ui/cn.png", subtitle: "法医昆虫学模拟器" },
+        en: { titleImg: "ui/en.png", subtitle: "Forensic Entomology Simulator" },
+        // 以后新增语言时，titleImg 一律填 "ui/en.png"，subtitle 换成对应语言文字即可
+      };
+
+      const LANG_ORDER = ["zh", "en"]; // 语言按钮循环切换的顺序
+      let currentLangIndex = 0;
+
+      const titleImg = document.getElementById("title-img");
+      const subtitleEl = document.getElementById("subtitle");
+
+      function applyLanguage(langKey) {
+        const lang = LANGUAGES[langKey];
+        if (!lang) return;
+        titleImg.src = lang.titleImg;
+        subtitleEl.textContent = lang.subtitle;
+      }
+
+      // 按钮点击事件占位，方便后续接入实际逻辑
+      document
+        .getElementById("btn-study")
+        .addEventListener("click", function () {
+          console.log("进入：学习模式");
+        });
+
+      document
+        .getElementById("btn-work")
+        .addEventListener("click", function () {
+          console.log("进入：工作模式");
+        });
+
+      document
+        .getElementById("btn-continue")
+        .addEventListener("click", function () {
+          console.log("继续游戏");
+        });
+
+      document
+        .getElementById("btn-lang")
+        .addEventListener("click", function () {
+          currentLangIndex = (currentLangIndex + 1) % LANG_ORDER.length;
+          applyLanguage(LANG_ORDER[currentLangIndex]);
+          console.log("切换语言：", LANG_ORDER[currentLangIndex]);
+        });
+    </script>
+  </body>
+</html>
