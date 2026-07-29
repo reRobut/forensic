@@ -1,3 +1,6 @@
+加入Chrysomya albiceps，Calliphora vomitoria，Phormia regina，Necrodes littoralis
+
+
 【获得法医评级和酬金】。以下是针对“纯鉴定玩法”的系统深度设计：你可以设计一个报告评级系统（S/A/B/C/F) 积累经验升级，提升和看板娘的好感度解锁对话剧情。
 
 0. 对幼虫进行培养/成虫跳过这一步
