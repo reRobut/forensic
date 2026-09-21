@@ -463,7 +463,9 @@
     text-align: center;
     margin-bottom: 5px;
   }
-  .grade-result .grade-letter { color: #7b2025; }
+  .grade-result .grade-letter {
+    color: #7b2025;
+  }
   .calculation-process {
     margin-top: 7px;
     padding-top: 6px;
@@ -485,8 +487,13 @@
     letter-spacing: 1px;
     cursor: pointer;
   }
-  .next-day-btn:hover { filter: brightness(1.12); }
-  .next-day-btn:disabled { cursor: wait; opacity: 0.7; }
+  .next-day-btn:hover {
+    filter: brightness(1.12);
+  }
+  .next-day-btn:disabled {
+    cursor: wait;
+    opacity: 0.7;
+  }
   .pfl {
     font-family: "Courier Prime", monospace;
     font-size: 13px;
@@ -935,19 +942,44 @@
     overflow-y: auto;
     min-width: 0;
   }
-  .book-panel .drag-handle { font-size: 13px; }
-  .book-panel .tax-name { font-size: 15px; }
-  .book-panel .tax-latin-sm, .book-panel .tax-flatin { font-size: 12px; }
-  .book-panel .tax-fname, .book-panel .genus-item .gi-name,
-  .book-panel .genus-item .gi-latin { font-size: 14px; }
-  .book-panel .species-item .si-name { font-size: 11.5px; }
-  .book-panel .species-item .si-latin { font-size: 10.2px; }
-  .book-panel .en { font-size: 16px; }
-  .book-panel .el, .book-panel .stage-block-title,
-  .book-panel .stage-photo-empty { font-size: 12px; }
-  .book-panel .eb { font-size: 13px; }
-  .book-panel .stage-caption { font-size: 14px; }
-  .book-panel .tax-empty { font-size: 11px; }
+  .book-panel .drag-handle {
+    font-size: 13px;
+  }
+  .book-panel .tax-name {
+    font-size: 15px;
+  }
+  .book-panel .tax-latin-sm,
+  .book-panel .tax-flatin {
+    font-size: 12px;
+  }
+  .book-panel .tax-fname,
+  .book-panel .genus-item .gi-name,
+  .book-panel .genus-item .gi-latin {
+    font-size: 14px;
+  }
+  .book-panel .species-item .si-name {
+    font-size: 11.5px;
+  }
+  .book-panel .species-item .si-latin {
+    font-size: 10.2px;
+  }
+  .book-panel .en {
+    font-size: 16px;
+  }
+  .book-panel .el,
+  .book-panel .stage-block-title,
+  .book-panel .stage-photo-empty {
+    font-size: 12px;
+  }
+  .book-panel .eb {
+    font-size: 13px;
+  }
+  .book-panel .stage-caption {
+    font-size: 14px;
+  }
+  .book-panel .tax-empty {
+    font-size: 11px;
+  }
   .en {
     font-family: "Special Elite", serif;
     font-size: 14px;
@@ -1146,7 +1178,9 @@
     border-radius: 3px;
     box-shadow: 3px 3px 0 #0005;
     color: #7b2025;
-    font: bold 12px "Courier Prime", monospace;
+    font:
+      bold 12px "Courier Prime",
+      monospace;
     text-align: center;
     pointer-events: none;
   }
@@ -1179,11 +1213,18 @@
     animation: radio-wiggle 0.65s ease-in-out infinite;
   }
   @keyframes radio-wiggle {
-    0%, 100% { transform: rotate(-1.4deg) translateY(0); }
-    50% { transform: rotate(1.4deg) translateY(-1px); }
+    0%,
+    100% {
+      transform: rotate(-1.4deg) translateY(0);
+    }
+    50% {
+      transform: rotate(1.4deg) translateY(-1px);
+    }
   }
   @media (prefers-reduced-motion: reduce) {
-    .radio-toggle.is-playing img { animation: none; }
+    .radio-toggle.is-playing img {
+      animation: none;
+    }
   }
   .celebration {
     position: absolute;
@@ -1202,7 +1243,9 @@
     background: #7b2025;
     border: 2px solid #f3d271;
     box-shadow: 3px 4px 0 #0006;
-    font: bold 20px "Special Elite", serif;
+    font:
+      bold 20px "Special Elite",
+      serif;
     white-space: nowrap;
     animation: celebration-pop 2.5s ease-out forwards;
   }
@@ -1217,19 +1260,165 @@
     animation-delay: var(--delay);
   }
   @keyframes confetti-flight {
-    0% { opacity: 0; transform: translate(-50%, 0) rotate(0); }
-    12% { opacity: 1; }
-    70% { opacity: 1; }
-    100% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--spin)); }
+    0% {
+      opacity: 0;
+      transform: translate(-50%, 0) rotate(0);
+    }
+    12% {
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(var(--dx), var(--dy)) rotate(var(--spin));
+    }
   }
   @keyframes celebration-pop {
-    0% { opacity: 0; transform: translateX(-50%) scale(0.5); }
-    15%, 75% { opacity: 1; transform: translateX(-50%) scale(1); }
-    100% { opacity: 0; transform: translateX(-50%) scale(1.1); }
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.5);
+    }
+    15%,
+    75% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-50%) scale(1.1);
+    }
   }
   @media (prefers-reduced-motion: reduce) {
-    .confetti-piece { display: none; }
-    .celebration-label { animation: none; }
+    .confetti-piece {
+      display: none;
+    }
+    .celebration-label {
+      animation: none;
+    }
+  }
+  .tutorial-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 200;
+    background: #0008;
+    pointer-events: none;
+    font-family: monospace;
+    color: #fff;
+  }
+  .tutorial-overlay.is-hidden {
+    display: none;
+  }
+  .tutorial-overlay.is-task {
+    background: transparent;
+  }
+  .tutorial-overlay.is-task .tutorial-portrait {
+    display: none;
+  }
+  .tutorial-portrait {
+    position: absolute;
+    bottom: 105px;
+    left: 5%;
+    height: min(65%, 480px);
+    max-width: 43%;
+    object-fit: contain;
+    object-position: bottom;
+    image-rendering: pixelated;
+    filter: drop-shadow(5px 5px 0 #111);
+    pointer-events: none;
+    transform: translateY(33.333%) scale(1.5);
+    transform-origin: bottom left;
+  }
+  .tutorial-dialog {
+    position: absolute;
+    bottom: 12px;
+    left: 3%;
+    width: 94%;
+    min-height: 130px;
+    padding: 20px 22px 14px;
+    border: 3px solid #fff;
+    background: #090909;
+    box-shadow:
+      0 0 0 4px #090909,
+      0 0 0 6px #aaa;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  .tutorial-name {
+    position: absolute;
+    left: 14px;
+    top: -25px;
+    padding: 3px 12px;
+    background: #090909;
+    border: 2px solid #fff;
+    font-size: 15px;
+  }
+  .tutorial-text {
+    font-size: clamp(15px, 2.1vw, 21px);
+    line-height: 1.6;
+    white-space: pre-wrap;
+  }
+  .tutorial-next {
+    text-align: right;
+    font-size: 13px;
+    color: #bbb;
+    margin-top: 6px;
+  }
+  .tutorial-options {
+    display: grid;
+    gap: 7px;
+    margin-top: 12px;
+  }
+  .tutorial-options button,
+  .tutorial-skip {
+    font: inherit;
+    color: #fff;
+    background: #111;
+    border: 2px solid #aaa;
+    cursor: pointer;
+  }
+  .tutorial-options button {
+    padding: 7px 12px;
+    text-align: left;
+    font-size: 16px;
+  }
+  .tutorial-options button:hover,
+  .tutorial-options button:focus-visible,
+  .tutorial-skip:hover {
+    background: #555;
+    border-color: #fff;
+  }
+  .tutorial-skip {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    padding: 5px 9px;
+    pointer-events: auto;
+  }
+  .tutorial-task {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #090909;
+    border: 2px solid #fff;
+    padding: 9px 15px;
+    text-align: center;
+    max-width: 75%;
+    pointer-events: none;
+  }
+  @media (max-width: 600px) {
+    .tutorial-portrait {
+      height: 40%;
+      bottom: 155px;
+    }
+    .tutorial-dialog {
+      min-height: 155px;
+    }
+    .tutorial-options button {
+      font-size: 14px;
+    }
   }
 </style>
 
@@ -1348,10 +1537,22 @@
     <img class="box-img box-img-open" src="ui/boxO.png" alt="证物盒（开）" />
   </div>
 
-  <div class="clickable radio-toggle is-playing" id="radio-toggle"
-    role="button" tabindex="0" aria-label="关闭背景音乐" aria-pressed="true"
-    title="关闭背景音乐" onclick="toggleRadio()"
-    onkeydown="if(event.key === 'Enter' || event.key === ' '){event.preventDefault();toggleRadio()}">
+  <div
+    class="clickable radio-toggle is-playing"
+    id="radio-toggle"
+    role="button"
+    tabindex="0"
+    aria-label="关闭背景音乐"
+    aria-pressed="true"
+    title="关闭背景音乐"
+    onclick="toggleRadio()"
+    onkeydown="
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleRadio();
+      }
+    "
+  >
     <img src="ui/radio.png" alt="背景音乐开关" />
   </div>
 
@@ -1481,7 +1682,15 @@
           >?</span
         >
       </div>
-      <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap; color: #3a2408">
+      <div
+        style="
+          display: flex;
+          gap: 6px;
+          align-items: center;
+          flex-wrap: wrap;
+          color: #3a2408;
+        "
+      >
         <span>至少死亡</span>
         <input
           class="fsel"
@@ -1520,12 +1729,13 @@
         PMI (h) = K<sub>阶段</sub> ÷ (T<sub>现场</sub> − D₀)<br />
         K<sub>阶段</sub> = 达到当前虫龄起点所需的累计有效积温（°C·h）<br />
         D₀ = 该种发育起点温度（°C）<br />
-        T<sub>现场</sub> =
-        现场日均温（由案件档案的最高/最低温计算）<br />
+        T<sub>现场</sub> = 现场日均温（由案件档案的最高/最低温计算）<br />
         用下一虫态起点积温减去培养至下一虫态期间的积温，可反推采集时已积累的积温；再除以现场有效温差。死亡时间范围另加定殖时间下限和典型上限。培养可以提供关键时间线索；标准答案不会随是否培养而改变。
       </div>
 
-      <button class="fbtn" id="submit-case-btn" onclick="submitForm()">提交鉴定</button>
+      <button class="fbtn" id="submit-case-btn" onclick="submitForm()">
+        提交鉴定
+      </button>
       <div class="fmsg" id="form-msg"></div>
     </div>
   </div>
@@ -1569,7 +1779,11 @@
         开始培养 → 成虫
       </button>
       <div class="incu-msg" id="incu-msg">累计用时0小时。</div>
-      <div class="incu-msg" id="incu-history" style="display:none;text-align:left"></div>
+      <div
+        class="incu-msg"
+        id="incu-history"
+        style="display: none; text-align: left"
+      ></div>
     </div>
   </div>
 
@@ -1601,7 +1815,13 @@
       src=""
       alt="现场昆虫标本"
       draggable="false"
-      style="width: 72px; height: 72px; object-fit: contain; image-rendering: pixelated; cursor: grab"
+      style="
+        width: 72px;
+        height: 72px;
+        object-fit: contain;
+        image-rendering: pixelated;
+        cursor: grab;
+      "
     />
   </div>
 
@@ -1610,6 +1830,30 @@
   <div class="hint-bar" id="hint"></div>
   <div class="level-hud" id="level-hud" aria-live="polite"></div>
   <div class="celebration" id="celebration" aria-live="polite"></div>
+  <div class="tutorial-overlay is-hidden" id="tutorial-overlay">
+    <img
+      class="tutorial-portrait"
+      id="tutorial-portrait"
+      src="Apo/normal.png"
+      alt="Apolly"
+    />
+    <button class="tutorial-skip" type="button" onclick="skipTutorial()">
+      跳过指导 ×
+    </button>
+    <div class="tutorial-task" id="tutorial-task" hidden></div>
+    <div
+      class="tutorial-dialog"
+      id="tutorial-dialog"
+      role="dialog"
+      aria-label="Apolly 的新手指导"
+      onclick="advanceTutorial()"
+    >
+      <span class="tutorial-name">Apolly</span>
+      <div class="tutorial-text" id="tutorial-text"></div>
+      <div class="tutorial-options" id="tutorial-options"></div>
+      <div class="tutorial-next" id="tutorial-next">点击继续 ▾</div>
+    </div>
+  </div>
 </div>
 
 <script src="insect-atlas-data.js"></script>
@@ -1735,8 +1979,10 @@
 
   // 渲染单个图片格（带可选说明文字 / 性别图标），url 为空时显示占位提示
   function isLarvalProcessImage(url) {
-    return typeof url === "string" &&
-      /(^|\/)(?:collection[^/]*|collect_[^/]*)\.png(?:[?#].*)?$/.test(url);
+    return (
+      typeof url === "string" &&
+      /(^|\/)(?:collection[^/]*|collect_[^/]*)\.png(?:[?#].*)?$/.test(url)
+    );
   }
 
   function scaleLarvalProcessImage(img) {
@@ -1754,21 +2000,25 @@
   }
 
   function fallbackStagePhoto(img, fallbackUrl) {
-    img.onerror = function () { showStagePhotoError(img); };
-    img.onload = function () { scaleLarvalProcessImage(img); };
+    img.onerror = function () {
+      showStagePhotoError(img);
+    };
+    img.onload = function () {
+      scaleLarvalProcessImage(img);
+    };
     img.src = fallbackUrl;
   }
 
   function renderStagePhoto(url, caption, sexIcon, fallbackUrl) {
-    const useCollectionScale =
-      isLarvalProcessImage(url);
+    const useCollectionScale = isLarvalProcessImage(url);
     const sizeClass = useCollectionScale ? " collection-scale" : "";
     const sizeOnload = useCollectionScale
       ? ` onload="scaleLarvalProcessImage(this)"`
       : "";
-    const errorHandler = fallbackUrl && url !== fallbackUrl
-      ? `fallbackStagePhoto(this,'${fallbackUrl}')`
-      : "showStagePhotoError(this)";
+    const errorHandler =
+      fallbackUrl && url !== fallbackUrl
+        ? `fallbackStagePhoto(this,'${fallbackUrl}')`
+        : "showStagePhotoError(this)";
     const photo = url
       ? `<img src="${url}"${sizeOnload} onerror="${errorHandler}">`
       : `<div class="stage-photo-empty">暂无<br>图片</div>`;
@@ -1862,7 +2112,8 @@
   function positionBook() {
     const desk = document.getElementById("desk");
     const book = document.getElementById("book-obj");
-    const bookLeft = desk.offsetWidth - 100 - Math.round(desk.offsetWidth * 0.03);
+    const bookLeft =
+      desk.offsetWidth - 100 - Math.round(desk.offsetWidth * 0.03);
     book.style.left = bookLeft + "px";
     // 左上角图标每隔桌面宽度的 10% 排列（图标容器宽 80px）。
     // 右侧沿用相同的容器间距，窗口缩放时两侧保持一致。
@@ -1892,7 +2143,10 @@
       probe.src = "";
       discoverTracks(index + 1);
     };
-    probe.onerror = () => { probe.onerror = null; probe.src = ""; };
+    probe.onerror = () => {
+      probe.onerror = null;
+      probe.src = "";
+    };
     probe.src = `sound/${index}.mp3`;
   }
   discoverTracks();
@@ -1901,10 +2155,13 @@
     const choices = availableTracks.filter((number) => number !== currentTrack);
     const candidates = choices.length ? choices : availableTracks;
     const next = candidates.length
-      ? candidates[Math.floor(Math.random() * candidates.length)] : 0;
+      ? candidates[Math.floor(Math.random() * candidates.length)]
+      : 0;
     currentTrack = next;
     music.src = `sound/${next}.mp3`;
-    music.play().catch(() => { /* 自动播放受限时等待下一次操作 */ });
+    music.play().catch(() => {
+      /* 自动播放受限时等待下一次操作 */
+    });
   }
   music.onended = playRandomTrack;
   music.onerror = () => {
@@ -1913,7 +2170,8 @@
     if (availableTracks.length) playRandomTrack();
   };
   document.addEventListener("pointerdown", (event) => {
-    if (event.target.closest("#radio-toggle") || !radioOn || musicStarted) return;
+    if (event.target.closest("#radio-toggle") || !radioOn || musicStarted)
+      return;
     musicStarted = true;
     playRandomTrack();
   });
@@ -1943,6 +2201,7 @@
     const displayMode = isBlockPanel ? "block" : "flex";
     el.style.display = show ? displayMode : "none";
     if (show) {
+      if (id === "bp") tutorialEvent("atlas");
       bringPanelToFront(el);
       document.getElementById("hint").style.display = "none";
       if (id === "bp") {
@@ -1989,6 +2248,7 @@
   function openBox() {
     if (boxOpen) return;
     boxOpen = true;
+    tutorialEvent("box");
     const bi = document.getElementById("box-item");
     bi.classList.add("opened");
     bi.onclick = null;
@@ -2284,7 +2544,8 @@
     const arrival = FORENSIC_CASE.arrivalEstimate;
     if (!development || development.upper === null || !arrival) return null;
     // 标准答案由案件生成时的真实虫龄内进度决定，与玩家是否培养无关。
-    const age = FORENSIC_CASE.sampleAccumulatedADH / (fieldTemp - sp.pmiModel.d0);
+    const age =
+      FORENSIC_CASE.sampleAccumulatedADH / (fieldTemp - sp.pmiModel.d0);
     development.lower = age;
     development.upper = age;
     return {
@@ -2299,7 +2560,9 @@
   let caseSubmitted = false;
   try {
     totalExp = Math.max(0, Number(localStorage.getItem(EXP_KEY)) || 0);
-  } catch (_) { /* 浏览器禁用存储时，等级仅在当前页面有效 */ }
+  } catch (_) {
+    /* 浏览器禁用存储时，等级仅在当前页面有效 */
+  }
   function renderLevel(previousExp = null) {
     const level = Math.floor(totalExp / 50) + 1;
     const progress = totalExp % 50;
@@ -2314,12 +2577,16 @@
       fill.style.width = `${amount * 2}%`;
       track.setAttribute("aria-valuenow", String(amount));
     };
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (previousExp === null || previousExp === totalExp || reducedMotion) {
       label.textContent = `Lv.${level}`;
       fill.style.transition = "none";
       setProgress(progress);
-      requestAnimationFrame(() => { fill.style.transition = ""; });
+      requestAnimationFrame(() => {
+        fill.style.transition = "";
+      });
       return;
     }
     const previousLevel = Math.floor(previousExp / 50) + 1;
@@ -2327,21 +2594,25 @@
     fill.style.transition = "none";
     setProgress(previousExp % 50);
     // 保留原节点，下一帧再设置宽度，浏览器才能播放增长动画。
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      fill.style.transition = "";
-      setProgress(previousLevel < level ? 50 : progress);
-      if (previousLevel < level) {
-        setTimeout(() => {
-          label.textContent = `Lv.${level}`;
-          fill.style.transition = "none";
-          setProgress(0);
-          requestAnimationFrame(() => requestAnimationFrame(() => {
-            fill.style.transition = "";
-            setProgress(progress);
-          }));
-        }, 750);
-      }
-    }));
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        fill.style.transition = "";
+        setProgress(previousLevel < level ? 50 : progress);
+        if (previousLevel < level) {
+          setTimeout(() => {
+            label.textContent = `Lv.${level}`;
+            fill.style.transition = "none";
+            setProgress(0);
+            requestAnimationFrame(() =>
+              requestAnimationFrame(() => {
+                fill.style.transition = "";
+                setProgress(progress);
+              }),
+            );
+          }, 750);
+        }
+      }),
+    );
   }
   function celebrate(message) {
     const layer = document.getElementById("celebration");
@@ -2356,14 +2627,28 @@
         const piece = document.createElement("span");
         piece.className = "confetti-piece";
         piece.style.setProperty("--confetti-color", colors[i % colors.length]);
-        piece.style.setProperty("--dx", `${Math.round((Math.random() - 0.5) * 660)}px`);
-        piece.style.setProperty("--dy", `${Math.round((Math.random() - 0.25) * 480)}px`);
-        piece.style.setProperty("--spin", `${Math.round((Math.random() - 0.5) * 1100)}deg`);
-        piece.style.setProperty("--delay", `${(Math.random() * 0.25).toFixed(2)}s`);
+        piece.style.setProperty(
+          "--dx",
+          `${Math.round((Math.random() - 0.5) * 660)}px`,
+        );
+        piece.style.setProperty(
+          "--dy",
+          `${Math.round((Math.random() - 0.25) * 480)}px`,
+        );
+        piece.style.setProperty(
+          "--spin",
+          `${Math.round((Math.random() - 0.5) * 1100)}deg`,
+        );
+        piece.style.setProperty(
+          "--delay",
+          `${(Math.random() * 0.25).toFixed(2)}s`,
+        );
         layer.appendChild(piece);
       }
     }
-    setTimeout(() => { if (layer.contains(label)) layer.replaceChildren(); }, 3000);
+    setTimeout(() => {
+      if (layer.contains(label)) layer.replaceChildren();
+    }, 3000);
   }
   renderLevel();
 
@@ -2411,19 +2696,23 @@
 
     if (correctRange === null) {
       msg.style.color = "#c0392b";
-      msg.textContent = "该物种暂无可靠积温或定殖模型，无法进行死亡时间范围校验";
+      msg.textContent =
+        "该物种暂无可靠积温或定殖模型，无法进行死亡时间范围校验";
       return;
     }
 
     const userLower = parseFloat(pmiLowerInput.value);
     const userUpper = parseFloat(pmiUpperInput.value);
-    const lowerError = Math.abs(userLower - correctRange.lower) / correctRange.lower;
-    const upperError = Math.abs(userUpper - correctRange.upper) / correctRange.upper;
+    const lowerError =
+      Math.abs(userLower - correctRange.lower) / correctRange.lower;
+    const upperError =
+      Math.abs(userUpper - correctRange.upper) / correctRange.upper;
     const maxError = Math.max(lowerError, upperError);
     const orderOk = userLower <= userUpper;
     const rangeText = `${correctRange.lower.toFixed(1)}–${correctRange.upper.toFixed(1)} 小时`;
 
-    const allBasicsCorrect = speciesCorrect && stageCorrect && tempOk && orderOk;
+    const allBasicsCorrect =
+      speciesCorrect && stageCorrect && tempOk && orderOk;
     let grade = "C";
     if (allBasicsCorrect && maxError <= 0.03) grade = "S";
     else if (allBasicsCorrect && maxError <= 0.08) grade = "A";
@@ -2438,7 +2727,11 @@
     const earnedExp = { S: 50, A: 25, B: 10, C: 0 }[grade];
     const previousExp = totalExp;
     totalExp += earnedExp;
-    try { localStorage.setItem(EXP_KEY, String(totalExp)); } catch (_) { /* 同上 */ }
+    try {
+      localStorage.setItem(EXP_KEY, String(totalExp));
+    } catch (_) {
+      /* 同上 */
+    }
     renderLevel(previousExp);
     const newLevel = Math.floor(totalExp / 50) + 1;
 
@@ -2446,15 +2739,20 @@
     const nextStage = STAGE_ORDER[stageIdx + 1];
     const model = trueSpecies.pmiModel;
     const denom = trueAvgTemp - model.d0;
-    const kLower = model.kTotal * stageFraction(trueSpecies, SPECIMEN.collectedStage);
+    const kLower =
+      model.kTotal * stageFraction(trueSpecies, SPECIMEN.collectedStage);
     const kUpper = model.kTotal * stageFraction(trueSpecies, nextStage);
     const arrival = FORENSIC_CASE.arrivalEstimate;
     const issueText = [
       speciesCorrect ? "" : `种级应为${trueSpecies.name}`,
-      stageCorrect ? "" : `采集虫龄应为${STAGE_LABELS[SPECIMEN.collectedStage]}`,
+      stageCorrect
+        ? ""
+        : `采集虫龄应为${STAGE_LABELS[SPECIMEN.collectedStage]}`,
       tempOk ? "" : `日均温应为${trueAvgTemp}°C`,
       orderOk ? "" : "填写的下限大于上限",
-    ].filter(Boolean).join("；");
+    ]
+      .filter(Boolean)
+      .join("；");
 
     msg.style.color = "#3a2408";
     msg.innerHTML = `<div class="grade-result grade-${grade}">
@@ -2479,7 +2777,11 @@
     </div>`;
 
     if (grade === "S" || newLevel > oldLevel) {
-      celebrate(newLevel > oldLevel ? `升级！等级 ${newLevel}${grade === "S" ? " · S级！" : ""}` : "S级！");
+      celebrate(
+        newLevel > oldLevel
+          ? `升级！等级 ${newLevel}${grade === "S" ? " · S级！" : ""}`
+          : "S级！",
+      );
     }
 
     requestAnimationFrame(() => {
@@ -2664,6 +2966,7 @@
     }
 
     SPECIMEN.inDish = true;
+    tutorialEvent("dish");
     updateIncuUI();
     startRearing();
   }
@@ -2719,7 +3022,10 @@
         hoursNeeded = deltaADH / (SPECIMEN.rearTemp - sp.pmiModel.d0);
       }
     }
-    if (SPECIMEN.rearingHours === 0 && SPECIMEN.currentStage === SPECIMEN.collectedStage) {
+    if (
+      SPECIMEN.rearingHours === 0 &&
+      SPECIMEN.currentStage === SPECIMEN.collectedStage
+    ) {
       hoursNeeded = FORENSIC_CASE.rearingToNextStageHours;
     }
 
@@ -2731,7 +3037,10 @@
     const bar = document.getElementById("incu-bar");
     const pct = document.getElementById("incu-pct");
     // 每个虫态采用固定动画时长；一龄切换快，三龄和蛹的变化慢一些。
-    const durationMs = { egg: 900, l1: 1100, l2: 1500, l3: 2500, pupa: 3200 }[SPECIMEN.currentStage] || 1500;
+    const durationMs =
+      { egg: 900, l1: 1100, l2: 1500, l3: 2500, pupa: 3200 }[
+        SPECIMEN.currentStage
+      ] || 1500;
     const start = performance.now();
 
     function tick(now) {
@@ -2769,18 +3078,28 @@
     if (hoursNeeded !== null) {
       if (SPECIMEN.rearingHours === 0) SPECIMEN.firstRearingHours = hoursNeeded;
       SPECIMEN.rearingHours += hoursNeeded;
-      SPECIMEN.stageTimes.push({ from: STAGE_ORDER[STAGE_ORDER.indexOf(nextStage) - 1], to: nextStage, hours: hoursNeeded });
+      SPECIMEN.stageTimes.push({
+        from: STAGE_ORDER[STAGE_ORDER.indexOf(nextStage) - 1],
+        to: nextStage,
+        hours: hoursNeeded,
+      });
     }
-    const hoursTxt =
-      hoursNeeded !== null ? hoursNeeded.toFixed(1) : "未知";
-    document.getElementById("incu-msg").textContent = nextStage === "adult" ? "" :
-      `本次至${STAGE_LABELS[nextStage]}：${hoursTxt}小时；累计：${SPECIMEN.rearingHours.toFixed(1)}小时；采集虫态至下一虫态：${SPECIMEN.firstRearingHours.toFixed(1)}小时（用于反推）。`;
+    const hoursTxt = hoursNeeded !== null ? hoursNeeded.toFixed(1) : "未知";
+    document.getElementById("incu-msg").textContent =
+      nextStage === "adult"
+        ? ""
+        : `本次至${STAGE_LABELS[nextStage]}：${hoursTxt}小时；累计：${SPECIMEN.rearingHours.toFixed(1)}小时；采集虫态至下一虫态：${SPECIMEN.firstRearingHours.toFixed(1)}小时（用于反推）。`;
     if (nextStage === "adult") {
       const history = document.getElementById("incu-history");
       history.style.display = "block";
-      history.innerHTML = `<b>培养记录（采集至成虫）</b><br>${SPECIMEN.stageTimes.map(({from, to, hours}) =>
-        `${STAGE_LABELS[from]} → ${STAGE_LABELS[to]}：${hours.toFixed(1)}小时`
-      ).join("<br>")}<br><b>总用时：${SPECIMEN.rearingHours.toFixed(1)}小时</b>`;
+      history.innerHTML = `<b>培养记录（采集至成虫）</b><br>${SPECIMEN.stageTimes
+        .map(
+          ({ from, to, hours }) =>
+            `${STAGE_LABELS[from]} → ${STAGE_LABELS[to]}：${hours.toFixed(1)}小时`,
+        )
+        .join(
+          "<br>",
+        )}<br><b>总用时：${SPECIMEN.rearingHours.toFixed(1)}小时</b>`;
     }
     updateIncuUI();
     if (nextStage !== "adult") {
@@ -2788,4 +3107,221 @@
       requestAnimationFrame(() => startRearing());
     }
   }
+
+  // 新手指导：选择会播放对应回应，操作节点由桌面事件解锁。
+  const tutorialLines = [
+    ["你……你好。我是负责新人指导的Apolly。", "normal"],
+    ["啊……我明明不擅长和陌生人打交道的……", "normal"],
+    [
+      "总之……先互相了解一下吧。你害怕虫子吗？",
+      "normal",
+      [
+        ["A. 害怕", "也是呢，很多人都害怕", "awk"],
+        ["B. 不是很害怕", "哦？那你胆子还挺大的嘛", "normal"],
+        [
+          "C. 虫虫可爱捏",
+          "嘻嘻，是吧？它们很可爱吧？我也最喜欢它们了",
+          "excited",
+        ],
+      ],
+    ],
+    ["我小时候也害怕蜘蛛啊，蜈蚣蚰蜒，毛毛虫什么的", "normal"],
+    ["很奇怪吧？明明没有被伤害过，但是仿佛是刻进DNA里的本能一样", "normal"],
+    ["蚊子蟑螂这种能对我造成直接威胁的除外吧", "normal"],
+    ["有利益冲突的话没办法", "normal"],
+    ["如果是不会伤害人类的虫子，只是因为长相被人类讨厌的话", "normal"],
+    ["总觉得有点可怜……感觉不大公平", "normal"],
+    ["小时候的我开始觉得自己的恐惧没有道理", "normal"],
+    ["于是开始看很多昆虫和节肢动物的图片，试图让自己脱敏", "normal"],
+    ["并更多地了解它们的习性，发现它们其实没有那么危险", "normal"],
+    ["还努力找出它们可爱，值得欣赏的地方", "normal"],
+    ["结果不知不觉变成昆虫爱好者了……哈哈", "excited"],
+    [
+      "那……你知道法医昆虫学是干嘛的吗？",
+      "normal",
+      [
+        ["A. 知道", "那就好办了", "normal"],
+        [
+          "B. 不知道",
+          "人死后发出的气味会很快吸引来昆虫，有的会在尸体上产卵",
+          "normal",
+          "法医昆虫学家会采集尸体上的昆虫，根据昆虫到来的时机和幼虫生长规律",
+        ],
+      ],
+    ],
+    [
+      "倒推出尸体的最短死亡时间（PMI min: Minimal Postmortem Interval）",
+      "normal",
+    ],
+    ["这是你在这里主要的工作内容", "normal"],
+    ["为什么不能推测出精确的死亡时间？", "normal"],
+    ["我们只能知道昆虫在尸体上存在了至少多长时间", "normal"],
+    [
+      "现实里，法医昆虫学家还会根据昆虫的地域性，推断第一案发现场的位置区域",
+      "normal",
+    ],
+    [
+      "或者通过化验啃食尸体的昆虫体内的成分，检测死者是否服用过某些东西",
+      "normal",
+    ],
+    [
+      "尸体是否被特殊处理和保存，被放在哪里，是否有移动过，也会有影响",
+      "normal",
+    ],
+    ["那些比较复杂，我们就暂时不涉及啦", "normal"],
+    ["作为实习生，你暂时只需要掌握基础的知识", "normal"],
+    ["我会负责现场的样本采集，所以你接触到的就只有昆虫样本啦", "normal"],
+    [
+      "尸体什么的是一点看不到的",
+      "normal",
+      [
+        ["A. （逃过一劫）", null, "normal"],
+        ["B. (失望)", "你在失望什么？", "normal"],
+      ],
+    ],
+    ["给你介绍一下我们的工作流程。首先是准备工作", "normal"],
+    ["从样本箱里拿出昆虫样本", "normal"],
+    ["先点击桌面左下角的样本箱，取出昆虫样本。", "normal", null, "box"],
+    ["很好，就是这样", "normal"],
+    ["如果样本是幼虫的话，可以先在培养瓶里养成成虫，再进行物种鉴定", "normal"],
+    ["现实里法医昆虫学家也可以根据观察微观结构的不同，直接鉴定幼虫", "normal"],
+    ["现在把虫子拖到桌面上的培养瓶里。", "normal", null, "dish"],
+    ["很好，样本已经放进培养瓶了", "normal"],
+    ["你可以翻看查阅桌面右上角的图鉴，进行比对", "normal"],
+    ["请点击桌面右上角的图鉴。", "normal", null, "atlas"],
+    ["没错，就是这样", "normal"],
+    ["不同的昆虫会在尸体腐败的不同阶段到达", "normal"],
+    ["到达之后有的也会在尸体上进行世代更替", "normal"],
+    ["这个也比较复杂，你暂时不会接触", "normal"],
+    ["那么，怎么靠昆虫推测死亡时间呢？", "normal"],
+    ["蝇类的幼虫发育十分有规律", "normal"],
+    [
+      "简单地说就是，它们只要积累了一定的温度，就可以发育至下一个阶段",
+      "normal",
+    ],
+    ["但是它们也有个发育起始温度，比如10°，在10°以下幼虫会停止发育", "normal"],
+    ["所以在计算的时候我们会用平均气温减去这个发育起始温度", "normal"],
+    ["再比如，这个虫子需要200的积温才能到达下一阶段", "normal"],
+    ["近期的气温如果是20°的话，就是200/(20-10)=200/10=20h", "normal"],
+    ["所以这个虫子需要在20°的环境下用20个小时成长为下一阶段", "normal"],
+    ["在30°的环境下只用10个小时。大概就是这个原理啦。", "normal"],
+    ["在图鉴的末尾都有每种虫各个阶段的成长积温数据，你可以进行查阅", "normal"],
+    ["实在不明白的话也可以瞎猜", "normal"],
+    ["我会在那之后给你展示正确的运算过程的", "normal"],
+    ["多看几次应该也能明白的，我相信你", "normal"],
+    ["如果觉得昆虫图鉴窗口太小，可以拉动右下角，扩大窗口", "normal"],
+    ["那要说的就是这些，我期待你的表现哦新人！", "normal"],
+  ];
+  let tutorialIndex = 0;
+  let tutorialReplies = [];
+  let tutorialWaiting = null;
+  let tutorialTypingTimer = null;
+  let tutorialFullText = "";
+  let tutorialTyping = false;
+  function finishTutorialTyping() {
+    clearTimeout(tutorialTypingTimer);
+    tutorialTyping = false;
+    document.getElementById("tutorial-text").textContent = tutorialFullText;
+    if (!tutorialWaiting) {
+      document.getElementById("tutorial-options").style.display = "grid";
+      document.getElementById("tutorial-next").style.display =
+        document.getElementById("tutorial-options").childElementCount
+          ? "none"
+          : "block";
+    }
+  }
+  function startTutorial() {
+    tutorialIndex = 0;
+    tutorialReplies = [];
+    tutorialWaiting = null;
+    document
+      .getElementById("tutorial-overlay")
+      .classList.remove("is-hidden", "is-task");
+    renderTutorial();
+  }
+  function skipTutorial() {
+    clearTimeout(tutorialTypingTimer);
+    tutorialTyping = false;
+    window.location.href = "index.html";
+  }
+  function tutorialEvent(eventName) {
+    if (tutorialWaiting !== eventName) return;
+    tutorialWaiting = null;
+    tutorialIndex++;
+    renderTutorial();
+  }
+  function renderTutorial() {
+    if (tutorialReplies.length) {
+      const reply = tutorialReplies[0];
+      showTutorialLine(reply[0], reply[1]);
+      return;
+    }
+    if (tutorialIndex >= tutorialLines.length) {
+      skipTutorial();
+      return;
+    }
+    const [line, mood, choices, task] = tutorialLines[tutorialIndex];
+    tutorialWaiting = task || null;
+    showTutorialLine(line, mood);
+    document
+      .getElementById("tutorial-overlay")
+      .classList.toggle("is-task", Boolean(task));
+    const options = document.getElementById("tutorial-options");
+    const taskEl = document.getElementById("tutorial-task");
+    taskEl.hidden = !task;
+    taskEl.textContent = task ? line : "";
+    document.getElementById("tutorial-dialog").style.display = task
+      ? "none"
+      : "block";
+    if (choices)
+      choices.forEach(([label, ...reply]) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = label;
+        button.onclick = (event) => {
+          event.stopPropagation();
+          tutorialReplies = reply[0] ? [[reply[0], reply[1] || "normal"]] : [];
+          if (reply[2]) tutorialReplies.push([reply[2], "normal"]);
+          tutorialIndex++;
+          renderTutorial();
+        };
+        options.appendChild(button);
+      });
+    document.getElementById("tutorial-next").style.display = "none";
+  }
+  function showTutorialLine(line, mood) {
+    clearTimeout(tutorialTypingTimer);
+    tutorialFullText = line;
+    tutorialTyping = true;
+    const textEl = document.getElementById("tutorial-text");
+    textEl.textContent = "";
+    const characters = Array.from(line);
+    let position = 0;
+    function typeNext() {
+      if (!tutorialTyping) return;
+      textEl.textContent += characters[position++];
+      if (position < characters.length)
+        tutorialTypingTimer = setTimeout(typeNext, 38);
+      else finishTutorialTyping();
+    }
+    tutorialTypingTimer = setTimeout(typeNext, 38);
+    document.getElementById("tutorial-portrait").src = "Apo/" + mood + ".png";
+    document.getElementById("tutorial-options").replaceChildren();
+    document.getElementById("tutorial-options").style.display = "none";
+    document.getElementById("tutorial-dialog").style.display = "block";
+    document.getElementById("tutorial-next").style.display = "none";
+    document.getElementById("tutorial-task").hidden = true;
+  }
+  function advanceTutorial() {
+    if (tutorialWaiting) return;
+    if (tutorialTyping) {
+      finishTutorialTyping();
+      return;
+    }
+    if (document.getElementById("tutorial-options").childElementCount) return;
+    if (tutorialReplies.length) tutorialReplies.shift();
+    else tutorialIndex++;
+    renderTutorial();
+  }
+  startTutorial();
 </script>

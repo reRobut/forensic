@@ -5,9 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>蛆虫侦探：法医昆虫学模拟器</title>
     <style>
+      /* 像素字体：统一用 VT323，仅覆盖拉丁字母（含法/德/西/葡等带重音符号的拉丁扩展字符）
+         西里尔字母（俄语）、中文/日文/韩文该字体均不含相关字形，会自动 fallback 到系统默认字体 */
       @font-face {
         font-family: "PixelFont";
-        src: local("Press Start 2P");
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("fonts/vt323-latin-400-normal.woff2") format("woff2");
+        unicode-range:
+          U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+          U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+          U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      @font-face {
+        font-family: "PixelFont";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("fonts/vt323-latin-ext-400-normal.woff2") format("woff2");
+        unicode-range:
+          U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+          U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+          U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
       }
 
       * {
@@ -57,13 +78,13 @@
       }
 
       .subtitle {
-        color: #f5f1e6; /* 米白色 */
+        color: #ecd4ac; /* 棕黄色 */
         text-shadow:
           2px 2px 0 #000,
           -1px -1px 0 #000,
           1px -1px 0 #000,
           -1px 1px 0 #000;
-        font-size: 30px;
+        font-size: 40px;
         letter-spacing: 2px;
         text-align: center;
         white-space: nowrap;
@@ -73,12 +94,12 @@
       .menu {
         position: absolute;
         left: 50%;
-        top: 64%;
+        top: 68%;
         transform: translate(-50%, -50%);
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 16px;
+        gap: 20px;
         z-index: 10;
       }
 
@@ -91,11 +112,15 @@
         cursor: pointer;
         user-select: none;
         image-rendering: pixelated;
-        transition: transform 0.06s ease, filter 0.06s ease;
+        transition:
+          transform 0.06s ease,
+          filter 0.06s ease;
       }
 
       .pixel-btn img {
         display: block;
+        width: 306px;
+        height: 85px;
         image-rendering: pixelated;
         pointer-events: none;
       }
@@ -110,7 +135,147 @@
         filter: brightness(0.95);
       }
 
+      /* ===== 弹窗通用样式：黑底白字像素风 ===== */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        padding: 24px;
+      }
 
+      .modal-overlay.is-open {
+        display: flex;
+      }
+
+      .modal-frame {
+        background: #e8dcc0; /* 米黄色外框，呼应卡片配色 */
+        padding: 6px;
+        clip-path: polygon(
+          0 8px,
+          8px 8px,
+          8px 0,
+          calc(100% - 8px) 0,
+          calc(100% - 8px) 8px,
+          100% 8px,
+          100% calc(100% - 8px),
+          calc(100% - 8px) calc(100% - 8px),
+          calc(100% - 8px) 100%,
+          8px 100%,
+          8px calc(100% - 8px),
+          0 calc(100% - 8px)
+        );
+        max-width: 90vw;
+        max-height: 85vh;
+      }
+
+      .modal-box {
+        background: #0a0a0a;
+        color: #f5f1e6;
+        padding: 28px 32px;
+        clip-path: polygon(
+          0 6px,
+          6px 6px,
+          6px 0,
+          calc(100% - 6px) 0,
+          calc(100% - 6px) 6px,
+          100% 6px,
+          100% calc(100% - 6px),
+          calc(100% - 6px) calc(100% - 6px),
+          calc(100% - 6px) 100%,
+          6px 100%,
+          6px calc(100% - 6px),
+          0 calc(100% - 6px)
+        );
+        max-width: 600px;
+        max-height: 78vh;
+        overflow-y: auto;
+        position: relative;
+      }
+
+      .modal-title {
+        font-size: 22px;
+        letter-spacing: 2px;
+        text-align: center;
+        margin-bottom: 24px;
+        color: #f5f1e6;
+      }
+
+      /* Credits 标题字号更大一些，并在下方加一条细线分隔标题与正文 */
+      #credits-modal-title {
+        font-size: 30px;
+        padding-bottom: 16px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #f5f1e6;
+      }
+
+      .modal-close-btn {
+        position: absolute;
+        top: 12px;
+        right: 14px;
+        background: none;
+        border: none;
+        color: #f5f1e6;
+        font-size: 34px;
+        cursor: pointer;
+        line-height: 1;
+        padding: 4px 8px;
+        font-family: inherit;
+      }
+
+      .modal-close-btn:hover {
+        color: #ffcf6b;
+      }
+
+      /* 语言选择网格：2列5行 */
+      .lang-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        min-width: 280px;
+      }
+
+      .lang-option {
+        background: #1c1c1c;
+        border: 2px solid #f5f1e6;
+        color: #f5f1e6;
+        font-family: inherit;
+        font-size: 14px;
+        padding: 14px 10px;
+        cursor: pointer;
+        text-align: center;
+        transition:
+          transform 0.06s ease,
+          background 0.06s ease;
+      }
+
+      /* VT323（拉丁字母语言）字形本身偏小，放大字号以配合中/日/韩/俄等系统字体的视觉大小 */
+      .lang-option--latin {
+        font-size: 20px;
+      }
+
+      .lang-option:hover {
+        background: #ffcf6b;
+        color: #0a0a0a;
+        transform: translate(-1px, -1px);
+      }
+
+      .lang-option.is-active {
+        border-color: #ffcf6b;
+        color: #ffcf6b;
+      }
+
+      /* Credits 内容：沿用全局 PixelFont（VT323），长段落阅读体验比块状像素字体更好 */
+      .credits-body {
+        font-size: 22px;
+        letter-spacing: 0.5px;
+        line-height: 1.7;
+        white-space: pre-line;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
@@ -141,53 +306,247 @@
       </div>
     </div>
 
+    <!-- 语言选择弹窗 -->
+    <div class="modal-overlay" id="lang-modal">
+      <div class="modal-frame">
+        <div class="modal-box">
+          <button class="modal-close-btn" id="lang-modal-close" type="button">
+            X
+          </button>
+          <div class="modal-title" id="lang-modal-title">
+            语言选择 / LANGUAGE
+          </div>
+          <div class="lang-grid" id="lang-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Credits 弹窗 -->
+    <div class="modal-overlay" id="credits-modal">
+      <div class="modal-frame">
+        <div class="modal-box">
+          <button
+            class="modal-close-btn"
+            id="credits-modal-close"
+            type="button"
+          >
+            X
+          </button>
+          <div class="modal-title" id="credits-modal-title">鸣谢</div>
+          <div class="credits-body" id="credits-modal-body"></div>
+        </div>
+      </div>
+    </div>
+
     <script>
-      // 语言配置：大标题除中文外一律用 en.png，小标题按语言切换
+      // ===== 语言数据：每种语言包含 标题图、小标题文字、弹窗UI文字、credits 文案 =====
+      // 大标题图：除中文（简/繁）外，其他语言一律使用 ui/en.png（图片资源不为每种语言单独制作）
       const LANGUAGES = {
-        zh: { titleImg: "ui/cn.png", subtitle: "法医昆虫学模拟器" },
-        en: { titleImg: "ui/en.png", subtitle: "Forensic Entomology Simulator" },
-        // 以后新增语言时，titleImg 一律填 "ui/en.png"，subtitle 换成对应语言文字即可
+        "zh-CN": {
+          label: "简体中文",
+          script: "other",
+          titleImg: "ui/cn.png",
+          subtitle: "法医昆虫学模拟器",
+          ui: { langTitle: "语言选择", creditsTitle: "鸣谢" },
+        },
+        "zh-TW": {
+          label: "繁體中文",
+          script: "other",
+          titleImg: "ui/cn.png",
+          subtitle: "法醫昆蟲學模擬器",
+        },
+        en: {
+          label: "English",
+          script: "latin",
+          titleImg: "ui/en.png",
+          subtitle: "Forensic Entomology Simulator",
+          ui: { langTitle: "Language", creditsTitle: "Credits" },
+        },
+        ru: {
+          label: "Русский",
+          script: "other",
+          titleImg: "ui/en.png",
+          subtitle: "Симулятор судебной энтомологии",
+          ui: { langTitle: "Язык", creditsTitle: "Благодарности" },
+        },
+        pt: {
+          label: "Português",
+          script: "latin",
+          titleImg: "ui/en.png",
+          subtitle: "Simulador de Entomologia Forense",
+          ui: { langTitle: "Idioma", creditsTitle: "Créditos" },
+        },
+        de: {
+          label: "Deutsch",
+          script: "latin",
+          titleImg: "ui/en.png",
+          subtitle: "Forensik-Entomologie-Simulator",
+          ui: { langTitle: "Sprache", creditsTitle: "Danksagung" },
+        },
+        fr: {
+          label: "Français",
+          script: "latin",
+          titleImg: "ui/en.png",
+          subtitle: "Simulateur d'entomologie médico-légale",
+          ui: { langTitle: "Langue", creditsTitle: "Remerciements" },
+        },
+        es: {
+          label: "Español",
+          script: "latin",
+          titleImg: "ui/en.png",
+          subtitle: "Simulador de Entomología Forense",
+          ui: { langTitle: "Idioma", creditsTitle: "Créditos" },
+        },
+        ja: {
+          label: "日本語",
+          script: "other",
+          titleImg: "ui/en.png",
+          subtitle: "法医昆虫学シミュレーター",
+          ui: { langTitle: "言語選択", creditsTitle: "クレジット" },
+        },
+        ko: {
+          label: "한국어",
+          script: "other",
+          titleImg: "ui/en.png",
+          subtitle: "법의곤충학 시뮬레이터",
+          ui: { langTitle: "언어 선택", creditsTitle: "크레딧" },
+        },
       };
 
-      const LANG_ORDER = ["zh", "en"]; // 语言按钮循环切换的顺序
-      let currentLangIndex = 0;
+      // 语言选择弹窗里按钮的排列顺序（2列5行网格）
+      const LANG_ORDER = [
+        "zh-CN",
+        "zh-TW",
+        "en",
+        "ru",
+        "pt",
+        "de",
+        "fr",
+        "es",
+        "ja",
+        "ko",
+      ];
 
-      const titleImg = document.getElementById("title-img");
+      let currentLang = "zh-CN";
+
+      const titleImgEl = document.getElementById("title-img");
       const subtitleEl = document.getElementById("subtitle");
 
+      const langModal = document.getElementById("lang-modal");
+      const langModalTitle = document.getElementById("lang-modal-title");
+      const langGrid = document.getElementById("lang-grid");
+
+      const creditsModal = document.getElementById("credits-modal");
+      const creditsModalTitle = document.getElementById("credits-modal-title");
+      const creditsModalBody = document.getElementById("credits-modal-body");
+
+      // 应用语言：只切换大标题图（中文用cn.png，其余用en.png）和小标题文字
+      // 其他资源均为图片素材，不随语言切换而改变
       function applyLanguage(langKey) {
         const lang = LANGUAGES[langKey];
         if (!lang) return;
-        titleImg.src = lang.titleImg;
+        currentLang = langKey;
+        titleImgEl.src = lang.titleImg;
         subtitleEl.textContent = lang.subtitle;
+        // 弹窗标题文字也跟随当前语言（若弹窗当前是打开状态）
+        langModalTitle.textContent = lang.ui.langTitle;
+        creditsModalTitle.textContent = lang.ui.creditsTitle;
+        renderLangGrid();
       }
 
-      // 按钮点击事件占位，方便后续接入实际逻辑
+      // 渲染语言选择网格，并高亮当前选中的语言
+      function renderLangGrid() {
+        langGrid.innerHTML = "";
+        LANG_ORDER.forEach(function (code) {
+          const lang = LANGUAGES[code];
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className =
+            "lang-option" +
+            (lang.script === "latin" ? " lang-option--latin" : "") +
+            (code === currentLang ? " is-active" : "");
+          btn.textContent = lang.label;
+          btn.addEventListener("click", function () {
+            applyLanguage(code);
+            closeLangModal();
+          });
+          langGrid.appendChild(btn);
+        });
+      }
+
+      function openLangModal() {
+        langModalTitle.textContent = LANGUAGES[currentLang].ui.langTitle;
+        renderLangGrid();
+        langModal.classList.add("is-open");
+      }
+
+      function closeLangModal() {
+        langModal.classList.remove("is-open");
+      }
+
+      function openCreditsModal() {
+        const lang = LANGUAGES[currentLang];
+        creditsModalTitle.textContent = lang.ui.creditsTitle;
+        creditsModalBody.textContent = lang.credits;
+        creditsModal.classList.add("is-open");
+      }
+
+      function closeCreditsModal() {
+        creditsModal.classList.remove("is-open");
+      }
+
+      const GAME_SAVE_KEY = "forensic-entomology-total-exp-v1";
       document
         .getElementById("btn-study")
         .addEventListener("click", function () {
-          console.log("进入：学习模式");
+          window.location.href = "tutorial.html";
         });
 
       document
         .getElementById("btn-work")
         .addEventListener("click", function () {
-          console.log("进入：工作模式");
+          try { localStorage.removeItem(GAME_SAVE_KEY); } catch (_) {}
+          window.location.href = "desk.html";
         });
 
       document
         .getElementById("btn-continue")
         .addEventListener("click", function () {
-          console.log("继续游戏");
+          let savedExp = null;
+          try { savedExp = localStorage.getItem(GAME_SAVE_KEY); } catch (_) {}
+          if (savedExp !== null && Number.isFinite(Number(savedExp))) {
+            window.location.href = "desk.html";
+          } else {
+            alert("还没有存档。请先进入工作模式并提交一个案件。");
+          }
         });
 
       document
         .getElementById("btn-lang")
-        .addEventListener("click", function () {
-          currentLangIndex = (currentLangIndex + 1) % LANG_ORDER.length;
-          applyLanguage(LANG_ORDER[currentLangIndex]);
-          console.log("切换语言：", LANG_ORDER[currentLangIndex]);
-        });
+        .addEventListener("click", openLangModal);
+
+      document
+        .getElementById("lang-modal-close")
+        .addEventListener("click", closeLangModal);
+      document
+        .getElementById("credits-modal-close")
+        .addEventListener("click", closeCreditsModal);
+
+      // 点击遮罩层（弹窗外部）关闭弹窗
+      langModal.addEventListener("click", function (e) {
+        if (e.target === langModal) closeLangModal();
+      });
+      creditsModal.addEventListener("click", function (e) {
+        if (e.target === creditsModal) closeCreditsModal();
+      });
+
+      // 按 ESC 关闭当前打开的弹窗
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          closeLangModal();
+          closeCreditsModal();
+        }
+      });
     </script>
   </body>
 </html>
