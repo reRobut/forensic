@@ -3218,6 +3218,32 @@
   let tutorialTypingTimer = null;
   let tutorialFullText = "";
   let tutorialTyping = false;
+  // The dimmed desk stays visible, but only the control required by the
+  // current instruction may receive input. Blocking in capture phase also
+  // prevents inline handlers from changing state before their tutorial step.
+  function tutorialAllowsInput(event) {
+    const overlay = document.getElementById("tutorial-overlay");
+    if (overlay.classList.contains("is-hidden")) return true;
+    const target = event.target;
+    if (target.closest("#tutorial-skip, .tutorial-skip")) return true;
+    if (!tutorialWaiting) return Boolean(target.closest("#tutorial-dialog"));
+    if (tutorialWaiting === "box") return Boolean(target.closest("#box-item"));
+    if (tutorialWaiting === "atlas") return Boolean(target.closest("#book-obj"));
+    if (tutorialWaiting === "dish") {
+      if (event.type === "dragstart" || event.type === "pointerdown")
+        return Boolean(target.closest("#spec-card"));
+      if (event.type === "dragover" || event.type === "drop")
+        return Boolean(target.closest("#incu-desk-icon, #incu-dish"));
+    }
+    return false;
+  }
+  ["pointerdown", "click", "dragstart", "dragover", "drop", "keydown"].forEach(
+    (type) => document.addEventListener(type, (event) => {
+      if (tutorialAllowsInput(event)) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }, true),
+  );
   function finishTutorialTyping() {
     clearTimeout(tutorialTypingTimer);
     tutorialTyping = false;
