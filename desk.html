@@ -1,4 +1,19 @@
 <style>
+  @font-face {
+    font-family: "PixelFont";
+    src: url("fonts/vt323-latin-400-normal.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "PixelFont";
+    src: url("fonts/vt323-latin-ext-400-normal.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2C60-2C7F, U+A720-A7FF;
+  }
   @import url("https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap");
   * {
     box-sizing: border-box;
@@ -463,9 +478,7 @@
     text-align: center;
     margin-bottom: 5px;
   }
-  .grade-result .grade-letter {
-    color: #7b2025;
-  }
+  .grade-result .grade-letter { color: #7b2025; }
   .calculation-process {
     margin-top: 7px;
     padding-top: 6px;
@@ -487,13 +500,8 @@
     letter-spacing: 1px;
     cursor: pointer;
   }
-  .next-day-btn:hover {
-    filter: brightness(1.12);
-  }
-  .next-day-btn:disabled {
-    cursor: wait;
-    opacity: 0.7;
-  }
+  .next-day-btn:hover { filter: brightness(1.12); }
+  .next-day-btn:disabled { cursor: wait; opacity: 0.7; }
   .pfl {
     font-family: "Courier Prime", monospace;
     font-size: 13px;
@@ -942,44 +950,19 @@
     overflow-y: auto;
     min-width: 0;
   }
-  .book-panel .drag-handle {
-    font-size: 13px;
-  }
-  .book-panel .tax-name {
-    font-size: 15px;
-  }
-  .book-panel .tax-latin-sm,
-  .book-panel .tax-flatin {
-    font-size: 12px;
-  }
-  .book-panel .tax-fname,
-  .book-panel .genus-item .gi-name,
-  .book-panel .genus-item .gi-latin {
-    font-size: 14px;
-  }
-  .book-panel .species-item .si-name {
-    font-size: 11.5px;
-  }
-  .book-panel .species-item .si-latin {
-    font-size: 10.2px;
-  }
-  .book-panel .en {
-    font-size: 16px;
-  }
-  .book-panel .el,
-  .book-panel .stage-block-title,
-  .book-panel .stage-photo-empty {
-    font-size: 12px;
-  }
-  .book-panel .eb {
-    font-size: 13px;
-  }
-  .book-panel .stage-caption {
-    font-size: 14px;
-  }
-  .book-panel .tax-empty {
-    font-size: 11px;
-  }
+  .book-panel .drag-handle { font-size: 13px; }
+  .book-panel .tax-name { font-size: 15px; }
+  .book-panel .tax-latin-sm, .book-panel .tax-flatin { font-size: 12px; }
+  .book-panel .tax-fname, .book-panel .genus-item .gi-name,
+  .book-panel .genus-item .gi-latin { font-size: 14px; }
+  .book-panel .species-item .si-name { font-size: 11.5px; }
+  .book-panel .species-item .si-latin { font-size: 10.2px; }
+  .book-panel .en { font-size: 16px; }
+  .book-panel .el, .book-panel .stage-block-title,
+  .book-panel .stage-photo-empty { font-size: 12px; }
+  .book-panel .eb { font-size: 13px; }
+  .book-panel .stage-caption { font-size: 14px; }
+  .book-panel .tax-empty { font-size: 11px; }
   .en {
     font-family: "Special Elite", serif;
     font-size: 14px;
@@ -1086,6 +1069,22 @@
     object-fit: contain;
     display: block;
   }
+  /* 黑水虻幼虫：高度为原图鉴格的一半，宽度随原始比例变化。 */
+  .stage-row.single .stage-photo-wrap.hi-larva {
+    width: auto;
+  }
+  .stage-photo.hi-larva {
+    width: auto;
+    height: auto;
+    overflow: visible;
+    display: inline-flex;
+  }
+  .stage-photo.hi-larva img {
+    width: auto;
+    height: 65px;
+    object-fit: contain;
+    display: block;
+  }
   .stage-photo-empty {
     font-size: 10px;
     color: #9a8050;
@@ -1178,9 +1177,7 @@
     border-radius: 3px;
     box-shadow: 3px 3px 0 #0005;
     color: #7b2025;
-    font:
-      bold 12px "Courier Prime",
-      monospace;
+    font: bold 12px "Courier Prime", monospace;
     text-align: center;
     pointer-events: none;
   }
@@ -1197,97 +1194,17 @@
     background: #7b2025;
     transition: width 0.7s ease;
   }
-  .story-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 200;
-    background: #0008;
-    font-family: monospace;
-    color: #fff;
-  }
-  .story-overlay[hidden] {
-    display: none;
-  }
-  .story-portrait {
-    position: absolute;
-    bottom: 105px;
-    left: 5%;
-    height: min(65%, 480px);
-    max-width: 43%;
-    object-fit: contain;
-    object-position: bottom;
-    image-rendering: pixelated;
-    filter: drop-shadow(5px 5px 0 #111);
-    pointer-events: none;
-    transform: translateY(33.333%) scale(1.5);
-    transform-origin: bottom left;
-  }
-  .story-dialog {
-    position: absolute;
-    bottom: 12px;
-    left: 3%;
-    width: 94%;
-    min-height: 130px;
-    padding: 20px 22px 14px;
-    border: 3px solid #fff;
-    background: #090909;
-    box-shadow:
-      0 0 0 4px #090909,
-      0 0 0 6px #aaa;
-    cursor: pointer;
-  }
-  .story-name {
-    position: absolute;
-    left: 14px;
-    top: -25px;
-    padding: 3px 12px;
-    background: #090909;
-    border: 2px solid #fff;
-    font-size: 15px;
-  }
-  .story-text {
-    font-size: clamp(15px, 2.1vw, 21px);
-    line-height: 1.6;
-    white-space: pre-wrap;
-  }
-  .story-next {
-    text-align: right;
-    font-size: 13px;
-    color: #bbb;
-    margin-top: 6px;
-  }
-  .story-options {
-    display: grid;
-    gap: 7px;
-    margin-top: 12px;
-  }
-  .story-options button {
-    padding: 7px 12px;
-    text-align: left;
-    font: inherit;
-    font-size: 16px;
-    color: #fff;
-    background: #111;
-    border: 2px solid #aaa;
-    cursor: pointer;
-  }
-  .story-options button:hover,
-  .story-options button:focus-visible {
-    background: #555;
-    border-color: #fff;
-  }
-  @media (max-width: 600px) {
-    .story-portrait {
-      height: 40%;
-      bottom: 155px;
-    }
-    .story-dialog {
-      min-height: 155px;
-    }
-    .story-options button {
-      font-size: 14px;
-    }
-  }
+  .story-overlay { position: absolute; inset: 0; z-index: 200; background: #0008; font-family: "PixelFont", "Microsoft YaHei", monospace, sans-serif; color: #fff; }
+  .story-overlay[hidden], .story-portrait[hidden], .story-name[hidden] { display: none; }
+  .story-portrait { position: absolute; bottom: 105px; left: 5%; height: min(65%, 480px); max-width: 43%; object-fit: contain; object-position: bottom; image-rendering: pixelated; filter: drop-shadow(5px 5px 0 #111); pointer-events: none; transform: translateY(33.333%) scale(1.5); transform-origin: bottom left; }
+  .story-dialog { position: absolute; bottom: 12px; left: 3%; width: 94%; min-height: 130px; padding: 20px 22px 14px; border: 3px solid #fff; background: #090909; box-shadow: 0 0 0 4px #090909, 0 0 0 6px #aaa; cursor: pointer; }
+  .story-name { position: absolute; left: 14px; top: -25px; padding: 3px 12px; background: #090909; border: 2px solid #fff; font-size: 15px; }
+  .story-text { font-size: clamp(15px, 2.1vw, 21px); line-height: 1.6; white-space: pre-wrap; }
+  .story-next { text-align: right; font-size: 13px; color: #bbb; margin-top: 6px; }
+  .story-options { display: grid; gap: 7px; margin-top: 12px; }
+  .story-options button { padding: 7px 12px; text-align: left; font: inherit; font-size: 16px; color: #fff; background: #111; border: 2px solid #aaa; cursor: pointer; }
+  .story-options button:hover, .story-options button:focus-visible { background: #555; border-color: #fff; }
+  @media (max-width: 600px) { .story-portrait { height: 40%; bottom: 155px; } .story-dialog { min-height: 155px; } .story-options button { font-size: 14px; } }
   .radio-toggle {
     top: 23px;
     width: 117px;
@@ -1304,18 +1221,11 @@
     animation: radio-wiggle 0.65s ease-in-out infinite;
   }
   @keyframes radio-wiggle {
-    0%,
-    100% {
-      transform: rotate(-1.4deg) translateY(0);
-    }
-    50% {
-      transform: rotate(1.4deg) translateY(-1px);
-    }
+    0%, 100% { transform: rotate(-1.4deg) translateY(0); }
+    50% { transform: rotate(1.4deg) translateY(-1px); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .radio-toggle.is-playing img {
-      animation: none;
-    }
+    .radio-toggle.is-playing img { animation: none; }
   }
   .celebration {
     position: absolute;
@@ -1334,9 +1244,7 @@
     background: #7b2025;
     border: 2px solid #f3d271;
     box-shadow: 3px 4px 0 #0006;
-    font:
-      bold 20px "Special Elite",
-      serif;
+    font: bold 20px "Special Elite", serif;
     white-space: nowrap;
     animation: celebration-pop 2.5s ease-out forwards;
   }
@@ -1351,43 +1259,19 @@
     animation-delay: var(--delay);
   }
   @keyframes confetti-flight {
-    0% {
-      opacity: 0;
-      transform: translate(-50%, 0) rotate(0);
-    }
-    12% {
-      opacity: 1;
-    }
-    70% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-      transform: translate(var(--dx), var(--dy)) rotate(var(--spin));
-    }
+    0% { opacity: 0; transform: translate(-50%, 0) rotate(0); }
+    12% { opacity: 1; }
+    70% { opacity: 1; }
+    100% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--spin)); }
   }
   @keyframes celebration-pop {
-    0% {
-      opacity: 0;
-      transform: translateX(-50%) scale(0.5);
-    }
-    15%,
-    75% {
-      opacity: 1;
-      transform: translateX(-50%) scale(1);
-    }
-    100% {
-      opacity: 0;
-      transform: translateX(-50%) scale(1.1);
-    }
+    0% { opacity: 0; transform: translateX(-50%) scale(0.5); }
+    15%, 75% { opacity: 1; transform: translateX(-50%) scale(1); }
+    100% { opacity: 0; transform: translateX(-50%) scale(1.1); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .confetti-piece {
-      display: none;
-    }
-    .celebration-label {
-      animation: none;
-    }
+    .confetti-piece { display: none; }
+    .celebration-label { animation: none; }
   }
 </style>
 
@@ -1506,22 +1390,10 @@
     <img class="box-img box-img-open" src="ui/boxO.png" alt="证物盒（开）" />
   </div>
 
-  <div
-    class="clickable radio-toggle is-playing"
-    id="radio-toggle"
-    role="button"
-    tabindex="0"
-    aria-label="关闭背景音乐"
-    aria-pressed="true"
-    title="关闭背景音乐"
-    onclick="toggleRadio()"
-    onkeydown="
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        toggleRadio();
-      }
-    "
-  >
+  <div class="clickable radio-toggle is-playing" id="radio-toggle"
+    role="button" tabindex="0" aria-label="关闭背景音乐" aria-pressed="true"
+    title="关闭背景音乐" onclick="toggleRadio()"
+    onkeydown="if(event.key === 'Enter' || event.key === ' '){event.preventDefault();toggleRadio()}">
     <img src="ui/radio.png" alt="背景音乐开关" />
   </div>
 
@@ -1651,15 +1523,7 @@
           >?</span
         >
       </div>
-      <div
-        style="
-          display: flex;
-          gap: 6px;
-          align-items: center;
-          flex-wrap: wrap;
-          color: #3a2408;
-        "
-      >
+      <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap; color: #3a2408">
         <span>至少死亡</span>
         <input
           class="fsel"
@@ -1698,13 +1562,12 @@
         PMI (h) = K<sub>阶段</sub> ÷ (T<sub>现场</sub> − D₀)<br />
         K<sub>阶段</sub> = 达到当前虫龄起点所需的累计有效积温（°C·h）<br />
         D₀ = 该种发育起点温度（°C）<br />
-        T<sub>现场</sub> = 现场日均温（由案件档案的最高/最低温计算）<br />
+        T<sub>现场</sub> =
+        现场日均温（由案件档案的最高/最低温计算）<br />
         用下一虫态起点积温减去培养至下一虫态期间的积温，可反推采集时已积累的积温；再除以现场有效温差。死亡时间范围另加定殖时间下限和典型上限。培养可以提供关键时间线索；标准答案不会随是否培养而改变。
       </div>
 
-      <button class="fbtn" id="submit-case-btn" onclick="submitForm()">
-        提交鉴定
-      </button>
+      <button class="fbtn" id="submit-case-btn" onclick="submitForm()">提交鉴定</button>
       <div class="fmsg" id="form-msg"></div>
     </div>
   </div>
@@ -1748,11 +1611,7 @@
         开始培养 → 成虫
       </button>
       <div class="incu-msg" id="incu-msg">累计用时0小时。</div>
-      <div
-        class="incu-msg"
-        id="incu-history"
-        style="display: none; text-align: left"
-      ></div>
+      <div class="incu-msg" id="incu-history" style="display:none;text-align:left"></div>
     </div>
   </div>
 
@@ -1784,13 +1643,7 @@
       src=""
       alt="现场昆虫标本"
       draggable="false"
-      style="
-        width: 72px;
-        height: 72px;
-        object-fit: contain;
-        image-rendering: pixelated;
-        cursor: grab;
-      "
+      style="width: 72px; height: 72px; object-fit: contain; image-rendering: pixelated; cursor: grab"
     />
   </div>
 
@@ -1800,18 +1653,8 @@
   <div class="level-hud" id="level-hud" aria-live="polite"></div>
   <div class="celebration" id="celebration" aria-live="polite"></div>
   <div class="story-overlay" id="story-overlay" hidden>
-    <img
-      class="story-portrait"
-      id="story-portrait"
-      src="Apo/normal.png"
-      alt="Apolly"
-    />
-    <div
-      class="story-dialog"
-      role="dialog"
-      aria-label="与 Apolly 的互动"
-      onclick="advanceStory()"
-    >
+    <img class="story-portrait" id="story-portrait" src="Apo/normal.png" alt="Apolly" />
+    <div class="story-dialog" role="dialog" aria-label="与 Apolly 的互动" onclick="advanceStory()">
       <span class="story-name">Apolly</span>
       <div class="story-text" id="story-text"></div>
       <div class="story-options" id="story-options"></div>
@@ -1820,8 +1663,10 @@
   </div>
 </div>
 
+<script src="lang.js"></script>
 <script src="insect-atlas-data.js"></script>
 <script src="case-generator.js"></script>
+<script>GameI18n.applyAtlas(); GameI18n.start();</script>
 
 <script>
   // ── 渲染分类树 ──────────────────────────────────────────
@@ -1900,6 +1745,10 @@
               });
 
               genusList.appendChild(speciesList);
+              if (species.length === 1) {
+                speciesList.classList.add("open");
+                gi.querySelector(".gi-arrow")?.classList.add("open");
+              }
 
               gi.addEventListener("click", () => {
                 const arr = gi.querySelector(".gi-arrow");
@@ -1924,6 +1773,10 @@
           const arr = famHd.querySelector(".tax-arrow");
           const open = genusList.classList.toggle("open");
           arr.classList.toggle("open", open);
+          if (open && soleSpeciesUnder(fam)) {
+            const item = genusList.querySelector(".species-item");
+            item?.click();
+          }
         });
 
         familyList.appendChild(famDiv);
@@ -1943,10 +1796,8 @@
 
   // 渲染单个图片格（带可选说明文字 / 性别图标），url 为空时显示占位提示
   function isLarvalProcessImage(url) {
-    return (
-      typeof url === "string" &&
-      /(^|\/)(?:collection[^/]*|collect_[^/]*)\.png(?:[?#].*)?$/.test(url)
-    );
+    return typeof url === "string" &&
+      /(^|\/)(?:collection[^/]*|collect_[^/]*)\.png(?:[?#].*)?$/.test(url);
   }
 
   function scaleLarvalProcessImage(img) {
@@ -1964,25 +1815,21 @@
   }
 
   function fallbackStagePhoto(img, fallbackUrl) {
-    img.onerror = function () {
-      showStagePhotoError(img);
-    };
-    img.onload = function () {
-      scaleLarvalProcessImage(img);
-    };
+    img.onerror = function () { showStagePhotoError(img); };
+    img.onload = function () { if (isLarvalProcessImage(img.src)) scaleLarvalProcessImage(img); };
     img.src = fallbackUrl;
   }
 
   function renderStagePhoto(url, caption, sexIcon, fallbackUrl) {
     const useCollectionScale = isLarvalProcessImage(url);
-    const sizeClass = useCollectionScale ? " collection-scale" : "";
+    const isHiLarva = /(?:^|\/)hi_larva\.png(?:[?#].*)?$/.test(url || "");
+    const sizeClass = useCollectionScale ? " collection-scale" : isHiLarva ? " hi-larva" : "";
     const sizeOnload = useCollectionScale
       ? ` onload="scaleLarvalProcessImage(this)"`
       : "";
-    const errorHandler =
-      fallbackUrl && url !== fallbackUrl
-        ? `fallbackStagePhoto(this,'${fallbackUrl}')`
-        : "showStagePhotoError(this)";
+    const errorHandler = fallbackUrl && url !== fallbackUrl
+      ? `fallbackStagePhoto(this,'${fallbackUrl}')`
+      : "showStagePhotoError(this)";
     const photo = url
       ? `<img src="${url}"${sizeOnload} onerror="${errorHandler}">`
       : `<div class="stage-photo-empty">暂无<br>图片</div>`;
@@ -2004,7 +1851,7 @@
     const blocks = [];
 
     // 幼虫图块
-    blocks.push(`
+    if (images.larva) blocks.push(`
       <div class="stage-block">
         <div class="stage-block-title">幼虫 · larva</div>
         <div class="stage-row single">
@@ -2025,7 +1872,7 @@
           <div class="stage-block-title">成虫 · adult</div>
           <div class="stage-row stage-pair">
             ${renderStagePhoto(images.adultMale, images.adultMaleCaption, "♂")}
-            ${renderStagePhoto(images.adultFemale, images.adultFemaleCaption, "♀")}
+            ${images.adultFemale ? renderStagePhoto(images.adultFemale, images.adultFemaleCaption, "♀") : ""}
           </div>
         </div>
       `);
@@ -2076,8 +1923,7 @@
   function positionBook() {
     const desk = document.getElementById("desk");
     const book = document.getElementById("book-obj");
-    const bookLeft =
-      desk.offsetWidth - 100 - Math.round(desk.offsetWidth * 0.03);
+    const bookLeft = desk.offsetWidth - 100 - Math.round(desk.offsetWidth * 0.03);
     book.style.left = bookLeft + "px";
     // 左上角图标每隔桌面宽度的 10% 排列（图标容器宽 80px）。
     // 右侧沿用相同的容器间距，窗口缩放时两侧保持一致。
@@ -2107,10 +1953,7 @@
       probe.src = "";
       discoverTracks(index + 1);
     };
-    probe.onerror = () => {
-      probe.onerror = null;
-      probe.src = "";
-    };
+    probe.onerror = () => { probe.onerror = null; probe.src = ""; };
     probe.src = `sound/${index}.mp3`;
   }
   discoverTracks();
@@ -2119,13 +1962,10 @@
     const choices = availableTracks.filter((number) => number !== currentTrack);
     const candidates = choices.length ? choices : availableTracks;
     const next = candidates.length
-      ? candidates[Math.floor(Math.random() * candidates.length)]
-      : 0;
+      ? candidates[Math.floor(Math.random() * candidates.length)] : 0;
     currentTrack = next;
     music.src = `sound/${next}.mp3`;
-    music.play().catch(() => {
-      /* 自动播放受限时等待下一次操作 */
-    });
+    music.play().catch(() => { /* 自动播放受限时等待下一次操作 */ });
   }
   music.onended = playRandomTrack;
   music.onerror = () => {
@@ -2134,8 +1974,7 @@
     if (availableTracks.length) playRandomTrack();
   };
   document.addEventListener("pointerdown", (event) => {
-    if (event.target.closest("#radio-toggle") || !radioOn || musicStarted)
-      return;
+    if (event.target.closest("#radio-toggle") || !radioOn || musicStarted) return;
     musicStarted = true;
     playRandomTrack();
   });
@@ -2143,8 +1982,8 @@
     radioOn = !radioOn;
     radio.classList.toggle("is-playing", radioOn);
     radio.setAttribute("aria-pressed", String(radioOn));
-    radio.setAttribute("aria-label", radioOn ? "关闭背景音乐" : "开启背景音乐");
-    radio.title = radioOn ? "关闭背景音乐" : "开启背景音乐";
+    radio.setAttribute("aria-label", GameI18n.t(radioOn ? "关闭背景音乐" : "开启背景音乐"));
+    radio.title = GameI18n.t(radioOn ? "关闭背景音乐" : "开启背景音乐");
     if (radioOn) {
       musicStarted = true;
       playRandomTrack();
@@ -2352,6 +2191,12 @@
     }
   }
 
+  function soleSpeciesUnder(node) {
+    const families = node.families || [node];
+    const all = families.flatMap(f => (f.genera || []).flatMap(g => g.species || []));
+    return all.length === 1 ? all[0] : null;
+  }
+
   function onOrderChange() {
     const orderId = document.getElementById("sel-order").value;
     const famSel = document.getElementById("sel-family");
@@ -2386,6 +2231,11 @@
     genSel.innerHTML = '<option value="">— 先选科 —</option>';
     spSel0.disabled = true;
     spSel0.innerHTML = '<option value="">— 先选属 —</option>';
+    if (soleSpeciesUnder(order)) {
+      const fam = order.families.find(f => soleSpeciesUnder(f));
+      famSel.value = fam.id;
+      onFamilyChange();
+    }
   }
 
   function onFamilyChange() {
@@ -2422,8 +2272,8 @@
       genSel.appendChild(opt);
     });
 
-    if (fam.genera.length === 1) {
-      genSel.value = fam.genera[0].id;
+    if (fam.genera.length === 1 || soleSpeciesUnder(fam)) {
+      genSel.value = (fam.genera.find(g => (g.species || []).length) || fam.genera[0]).id;
       onGenusChange();
     }
   }
@@ -2460,6 +2310,7 @@
       opt.textContent = `${sp.name}（${sp.latin}）`;
       spSel.appendChild(opt);
     });
+    if (genus.species.length === 1) spSel.value = genus.species[0].id;
   }
 
   function togglePmiHint() {
@@ -2506,8 +2357,7 @@
     const arrival = FORENSIC_CASE.arrivalEstimate;
     if (!development || development.upper === null || !arrival) return null;
     // 标准答案由案件生成时的真实虫龄内进度决定，与玩家是否培养无关。
-    const age =
-      FORENSIC_CASE.sampleAccumulatedADH / (fieldTemp - sp.pmiModel.d0);
+    const age = FORENSIC_CASE.sampleAccumulatedADH / (fieldTemp - sp.pmiModel.d0);
     development.lower = age;
     development.upper = age;
     return {
@@ -2521,18 +2371,15 @@
   const STORY_KEY = "forensic-entomology-apo-stories-v1";
   const apoStories = {
     2: [
-      { text: "哦？好像已经完全掌握了嘛新人", mood: "normal" },
-      { text: "我就知道你一定可以的", mood: "awk" },
+      { text: "哦？好像已经完全掌握了嘛新人", mood: "excited" },
+      { text: "我就知道你一定可以的", mood: "normal" },
     ],
     3: [
       { choices: [["所以比起猫猫狗狗，你更喜欢虫子吗？"]] },
       { text: "喜欢猫猫狗狗的人已经够多了，它们不需要我的爱", mood: "normal" },
       { choices: [["？"]] },
       { choices: [["那么虫子就需要你的爱吗？"]] },
-      {
-        text: "只是活着就能得到爱的猫猫狗狗，和只是活着就被人讨厌的虫子",
-        mood: "normal",
-      },
+      { text: "只是活着就能得到爱的猫猫狗狗，和只是活着就被人讨厌的虫子", mood: "normal" },
       { text: "我觉得我更像虫子", mood: "awk" },
       { choices: [["你到底经历了什么……"]] },
     ],
@@ -2550,41 +2397,20 @@
         "那时候买了几本法医相关的书，或许是在寻找方便的自杀方式也说不定",
         "那其中一本书就是关于法医昆虫学的",
         "真是不可思议",
-      ].map((text) => ({ text, mood: "normal" })),
-      {
-        text: "无论我什么时候，死在哪里，这群小东西都能很快地找到我",
-        mood: "awk",
-      },
-      {
-        text: "一想到这样的自己，死后还可以滋养这么多小生命，也是一种生命的轮回和延续",
-        mood: "awk",
-      },
-      { text: "我是和这个世界紧紧连接在一起的", mood: "awk" },
-      { text: "我就非常受安慰，甚至觉得不那么孤独了", mood: "awk" },
-
-      {
-        choices: [
-          ["A. 有点病态了", ["是……吗？"]],
-          ["B. 我不知道该说什么，但你愿意说的话，我愿意听你讲", ["谢谢你"]],
-          [
-            "C. 我好像能明白一些",
-            [
-              "是……吗？那你一定也很不容易吧",
-              "记住，你永远不是孤单一人",
-              "至少，还有我……",
-              "还有无数的小生命，在你的周围",
-            ],
-          ],
-        ],
-      },
+        "无论我什么时候，死在哪里，这群小东西都能很快地找到我",
+        "一想到这样的自己，死后还可以滋养这么多小生命，也是一种生命的轮回和延续",
+        "我是和这个世界紧紧连接在一起的",
+        "我就非常受安慰，甚至觉得不那么孤独了",
+      ].map(text => ({ text, mood: "normal" })),
+      { choices: [
+        ["A. 有点病态了", ["是……吗？"]],
+        ["B. 我不知道该说什么，但你愿意说的话，我愿意听你讲", ["谢谢你"]],
+        ["C. 我好像能明白一些", ["是……吗？那你一定也很不容易吧", "记住，你永远不是孤单一人", "至少，还有我……", "还有无数的小生命，在你的周围"]],
+      ] },
     ],
   };
   let seenApoStories = [];
-  try {
-    seenApoStories = JSON.parse(localStorage.getItem(STORY_KEY)) || [];
-  } catch (_) {
-    /* 存储不可用时仅本次有效 */
-  }
+  try { seenApoStories = JSON.parse(localStorage.getItem(STORY_KEY)) || []; } catch (_) { /* 存储不可用时仅本次有效 */ }
   if (!Array.isArray(seenApoStories)) seenApoStories = [];
   let storyQueue = [];
   let storyLevel = null;
@@ -2595,19 +2421,21 @@
   let storyFullText = "";
   function queueApoStories(oldLevel, newLevel) {
     for (let level = oldLevel + 1; level <= newLevel; level++) {
-      if (
-        apoStories[level] &&
-        !seenApoStories.includes(level) &&
-        !storyQueue.includes(level)
-      )
-        storyQueue.push(level);
+      if (apoStories[level] && !seenApoStories.includes(level) && !storyQueue.includes(level)) storyQueue.push(level);
     }
     if (storyLevel === null) startNextApoStory();
   }
   function startNextApoStory() {
     storyLevel = storyQueue.shift() ?? null;
     if (storyLevel === null) return;
-    storyLines = apoStories[storyLevel];
+    storyLines = [...apoStories[storyLevel]];
+    if (GameI18n.language() !== "zh-CN") storyLines = storyLines.map(line => {
+      const translate = value => GameI18n.language() === "en" ? GameStoryEnglish[value] || value : (GameStoryMore[GameI18n.language()] || {})[value] || GameI18n.t(value);
+      return line.choices
+        ? {...line, choices: line.choices.map(([label, replies]) =>
+            [translate(label), replies && replies.map(translate)])}
+        : {...line, text: translate(line.text)};
+    });
     storyIndex = 0;
     document.getElementById("story-overlay").hidden = false;
     renderApoStory();
@@ -2621,11 +2449,7 @@
   function renderApoStory() {
     if (storyIndex >= storyLines.length) {
       seenApoStories.push(storyLevel);
-      try {
-        localStorage.setItem(STORY_KEY, JSON.stringify(seenApoStories));
-      } catch (_) {
-        /* 同上 */
-      }
+      try { localStorage.setItem(STORY_KEY, JSON.stringify(seenApoStories)); } catch (_) { /* 同上 */ }
       storyLevel = null;
       document.getElementById("story-overlay").hidden = true;
       startNextApoStory();
@@ -2638,20 +2462,18 @@
     options.replaceChildren();
     textEl.textContent = "";
     document.getElementById("story-next").style.display = "none";
-    if (line.choices) {
+    const isPlayerChoice = Boolean(line.choices);
+    document.getElementById("story-portrait").hidden = isPlayerChoice;
+    document.querySelector("#story-overlay .story-name").hidden = isPlayerChoice;
+    if (isPlayerChoice) {
       storyTyping = false;
       line.choices.forEach(([label, replies]) => {
         const button = document.createElement("button");
         button.type = "button";
         button.textContent = label;
-        button.onclick = (event) => {
+        button.onclick = event => {
           event.stopPropagation();
-          if (replies)
-            storyLines.splice(
-              storyIndex + 1,
-              0,
-              ...replies.map((text) => ({ text, mood: "normal" })),
-            );
+          if (replies) storyLines.splice(storyIndex + 1, 0, ...replies.map(text => ({ text, mood: "normal" })));
           storyIndex++;
           renderApoStory();
         };
@@ -2659,8 +2481,7 @@
       });
       return;
     }
-    document.getElementById("story-portrait").src =
-      "Apo/" + (line.mood || "normal") + ".png";
+    document.getElementById("story-portrait").src = "Apo/" + (line.mood || "normal") + ".png";
     storyFullText = line.text;
     storyTyping = true;
     const characters = Array.from(line.text);
@@ -2668,8 +2489,7 @@
     function typeNext() {
       if (!storyTyping) return;
       textEl.textContent += characters[position++];
-      if (position < characters.length)
-        storyTypingTimer = setTimeout(typeNext, 38);
+      if (position < characters.length) storyTypingTimer = setTimeout(typeNext, 38);
       else finishApoTyping();
     }
     storyTypingTimer = setTimeout(typeNext, 38);
@@ -2680,13 +2500,12 @@
     storyIndex++;
     renderApoStory();
   }
+
   let totalExp = 0;
   let caseSubmitted = false;
   try {
     totalExp = Math.max(0, Number(localStorage.getItem(EXP_KEY)) || 0);
-  } catch (_) {
-    /* 浏览器禁用存储时，等级仅在当前页面有效 */
-  }
+  } catch (_) { /* 浏览器禁用存储时，等级仅在当前页面有效 */ }
   function renderLevel(previousExp = null) {
     const level = Math.floor(totalExp / 50) + 1;
     const progress = totalExp % 50;
@@ -2701,16 +2520,12 @@
       fill.style.width = `${amount * 2}%`;
       track.setAttribute("aria-valuenow", String(amount));
     };
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (previousExp === null || previousExp === totalExp || reducedMotion) {
       label.textContent = `Lv.${level}`;
       fill.style.transition = "none";
       setProgress(progress);
-      requestAnimationFrame(() => {
-        fill.style.transition = "";
-      });
+      requestAnimationFrame(() => { fill.style.transition = ""; });
       return;
     }
     const previousLevel = Math.floor(previousExp / 50) + 1;
@@ -2718,25 +2533,21 @@
     fill.style.transition = "none";
     setProgress(previousExp % 50);
     // 保留原节点，下一帧再设置宽度，浏览器才能播放增长动画。
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => {
-        fill.style.transition = "";
-        setProgress(previousLevel < level ? 50 : progress);
-        if (previousLevel < level) {
-          setTimeout(() => {
-            label.textContent = `Lv.${level}`;
-            fill.style.transition = "none";
-            setProgress(0);
-            requestAnimationFrame(() =>
-              requestAnimationFrame(() => {
-                fill.style.transition = "";
-                setProgress(progress);
-              }),
-            );
-          }, 750);
-        }
-      }),
-    );
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      fill.style.transition = "";
+      setProgress(previousLevel < level ? 50 : progress);
+      if (previousLevel < level) {
+        setTimeout(() => {
+          label.textContent = `Lv.${level}`;
+          fill.style.transition = "none";
+          setProgress(0);
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            fill.style.transition = "";
+            setProgress(progress);
+          }));
+        }, 750);
+      }
+    }));
   }
   function celebrate(message) {
     const layer = document.getElementById("celebration");
@@ -2751,28 +2562,14 @@
         const piece = document.createElement("span");
         piece.className = "confetti-piece";
         piece.style.setProperty("--confetti-color", colors[i % colors.length]);
-        piece.style.setProperty(
-          "--dx",
-          `${Math.round((Math.random() - 0.5) * 660)}px`,
-        );
-        piece.style.setProperty(
-          "--dy",
-          `${Math.round((Math.random() - 0.25) * 480)}px`,
-        );
-        piece.style.setProperty(
-          "--spin",
-          `${Math.round((Math.random() - 0.5) * 1100)}deg`,
-        );
-        piece.style.setProperty(
-          "--delay",
-          `${(Math.random() * 0.25).toFixed(2)}s`,
-        );
+        piece.style.setProperty("--dx", `${Math.round((Math.random() - 0.5) * 660)}px`);
+        piece.style.setProperty("--dy", `${Math.round((Math.random() - 0.25) * 480)}px`);
+        piece.style.setProperty("--spin", `${Math.round((Math.random() - 0.5) * 1100)}deg`);
+        piece.style.setProperty("--delay", `${(Math.random() * 0.25).toFixed(2)}s`);
         layer.appendChild(piece);
       }
     }
-    setTimeout(() => {
-      if (layer.contains(label)) layer.replaceChildren();
-    }, 3000);
+    setTimeout(() => { if (layer.contains(label)) layer.replaceChildren(); }, 3000);
   }
   renderLevel();
 
@@ -2820,23 +2617,19 @@
 
     if (correctRange === null) {
       msg.style.color = "#c0392b";
-      msg.textContent =
-        "该物种暂无可靠积温或定殖模型，无法进行死亡时间范围校验";
+      msg.textContent = "该物种暂无可靠积温或定殖模型，无法进行死亡时间范围校验";
       return;
     }
 
     const userLower = parseFloat(pmiLowerInput.value);
     const userUpper = parseFloat(pmiUpperInput.value);
-    const lowerError =
-      Math.abs(userLower - correctRange.lower) / correctRange.lower;
-    const upperError =
-      Math.abs(userUpper - correctRange.upper) / correctRange.upper;
+    const lowerError = Math.abs(userLower - correctRange.lower) / correctRange.lower;
+    const upperError = Math.abs(userUpper - correctRange.upper) / correctRange.upper;
     const maxError = Math.max(lowerError, upperError);
     const orderOk = userLower <= userUpper;
     const rangeText = `${correctRange.lower.toFixed(1)}–${correctRange.upper.toFixed(1)} 小时`;
 
-    const allBasicsCorrect =
-      speciesCorrect && stageCorrect && tempOk && orderOk;
+    const allBasicsCorrect = speciesCorrect && stageCorrect && tempOk && orderOk;
     let grade = "C";
     if (allBasicsCorrect && maxError <= 0.03) grade = "S";
     else if (allBasicsCorrect && maxError <= 0.08) grade = "A";
@@ -2851,11 +2644,7 @@
     const earnedExp = { S: 50, A: 25, B: 10, C: 0 }[grade];
     const previousExp = totalExp;
     totalExp += earnedExp;
-    try {
-      localStorage.setItem(EXP_KEY, String(totalExp));
-    } catch (_) {
-      /* 同上 */
-    }
+    try { localStorage.setItem(EXP_KEY, String(totalExp)); } catch (_) { /* 同上 */ }
     renderLevel(previousExp);
     const newLevel = Math.floor(totalExp / 50) + 1;
 
@@ -2863,20 +2652,15 @@
     const nextStage = STAGE_ORDER[stageIdx + 1];
     const model = trueSpecies.pmiModel;
     const denom = trueAvgTemp - model.d0;
-    const kLower =
-      model.kTotal * stageFraction(trueSpecies, SPECIMEN.collectedStage);
+    const kLower = model.kTotal * stageFraction(trueSpecies, SPECIMEN.collectedStage);
     const kUpper = model.kTotal * stageFraction(trueSpecies, nextStage);
     const arrival = FORENSIC_CASE.arrivalEstimate;
     const issueText = [
       speciesCorrect ? "" : `种级应为${trueSpecies.name}`,
-      stageCorrect
-        ? ""
-        : `采集虫龄应为${STAGE_LABELS[SPECIMEN.collectedStage]}`,
+      stageCorrect ? "" : `采集虫龄应为${STAGE_LABELS[SPECIMEN.collectedStage]}`,
       tempOk ? "" : `日均温应为${trueAvgTemp}°C`,
       orderOk ? "" : "填写的下限大于上限",
-    ]
-      .filter(Boolean)
-      .join("；");
+    ].filter(Boolean).join("；");
 
     msg.style.color = "#3a2408";
     msg.innerHTML = `<div class="grade-result grade-${grade}">
@@ -2901,14 +2685,9 @@
     </div>`;
 
     if (grade === "S" || newLevel > oldLevel) {
-      celebrate(
-        newLevel > oldLevel
-          ? `升级！等级 ${newLevel}${grade === "S" ? " · S级！" : ""}`
-          : "S级！",
-      );
+      celebrate(newLevel > oldLevel ? `升级！等级 ${newLevel}${grade === "S" ? " · S级！" : ""}` : "S级！");
     }
-    if (newLevel > oldLevel)
-      setTimeout(() => queueApoStories(oldLevel, newLevel), 850);
+    if (newLevel > oldLevel) setTimeout(() => queueApoStories(oldLevel, newLevel), 850);
 
     requestAnimationFrame(() => {
       const panel = document.getElementById("formp");
@@ -2927,12 +2706,12 @@
   // ── 标本状态 与 活体培养 ────────────────────────────────
   const STAGE_ORDER = ["egg", "l1", "l2", "l3", "pupa", "adult"];
   const STAGE_LABELS = {
-    egg: "卵",
-    l1: "一龄幼虫",
-    l2: "二龄幼虫",
-    l3: "三龄幼虫",
-    pupa: "蛹",
-    adult: "成虫",
+    egg: GameI18n.t("卵"),
+    l1: GameI18n.t("一龄幼虫"),
+    l2: GameI18n.t("二龄幼虫"),
+    l3: GameI18n.t("三龄幼虫"),
+    pupa: GameI18n.t("蛹"),
+    adult: GameI18n.t("成虫"),
   };
   const CASE_TEMP_MAX = FORENSIC_CASE.tempMax;
   const CASE_TEMP_MIN = FORENSIC_CASE.tempMin;
@@ -2998,8 +2777,8 @@
     document.getElementById("case-file-id").textContent = c.id;
     document.getElementById("form-case-id").textContent = c.id;
     document.getElementById("case-discovered-at").textContent = discoveredText;
-    document.getElementById("case-corpse-state").textContent = c.corpseState;
-    document.getElementById("case-environment").textContent = c.sceneLabel;
+    document.getElementById("case-corpse-state").textContent = GameI18n.t(c.corpseState);
+    document.getElementById("case-environment").textContent = GameI18n.t(c.sceneLabel);
     document.getElementById("case-temp-max").textContent = `${c.tempMax} °C`;
     document.getElementById("case-temp-min").textContent = `${c.tempMin} °C`;
     setSpecimenImage(
@@ -3147,10 +2926,7 @@
         hoursNeeded = deltaADH / (SPECIMEN.rearTemp - sp.pmiModel.d0);
       }
     }
-    if (
-      SPECIMEN.rearingHours === 0 &&
-      SPECIMEN.currentStage === SPECIMEN.collectedStage
-    ) {
+    if (SPECIMEN.rearingHours === 0 && SPECIMEN.currentStage === SPECIMEN.collectedStage) {
       hoursNeeded = FORENSIC_CASE.rearingToNextStageHours;
     }
 
@@ -3162,10 +2938,7 @@
     const bar = document.getElementById("incu-bar");
     const pct = document.getElementById("incu-pct");
     // 每个虫态采用固定动画时长；一龄切换快，三龄和蛹的变化慢一些。
-    const durationMs =
-      { egg: 900, l1: 1100, l2: 1500, l3: 2500, pupa: 3200 }[
-        SPECIMEN.currentStage
-      ] || 1500;
+    const durationMs = { egg: 900, l1: 1100, l2: 1500, l3: 2500, pupa: 3200 }[SPECIMEN.currentStage] || 1500;
     const start = performance.now();
 
     function tick(now) {
@@ -3203,28 +2976,18 @@
     if (hoursNeeded !== null) {
       if (SPECIMEN.rearingHours === 0) SPECIMEN.firstRearingHours = hoursNeeded;
       SPECIMEN.rearingHours += hoursNeeded;
-      SPECIMEN.stageTimes.push({
-        from: STAGE_ORDER[STAGE_ORDER.indexOf(nextStage) - 1],
-        to: nextStage,
-        hours: hoursNeeded,
-      });
+      SPECIMEN.stageTimes.push({ from: STAGE_ORDER[STAGE_ORDER.indexOf(nextStage) - 1], to: nextStage, hours: hoursNeeded });
     }
-    const hoursTxt = hoursNeeded !== null ? hoursNeeded.toFixed(1) : "未知";
-    document.getElementById("incu-msg").textContent =
-      nextStage === "adult"
-        ? ""
-        : `本次至${STAGE_LABELS[nextStage]}：${hoursTxt}小时；累计：${SPECIMEN.rearingHours.toFixed(1)}小时；采集虫态至下一虫态：${SPECIMEN.firstRearingHours.toFixed(1)}小时（用于反推）。`;
+    const hoursTxt =
+      hoursNeeded !== null ? hoursNeeded.toFixed(1) : "未知";
+    document.getElementById("incu-msg").textContent = nextStage === "adult" ? "" :
+      `本次至${STAGE_LABELS[nextStage]}：${hoursTxt}小时；累计：${SPECIMEN.rearingHours.toFixed(1)}小时；采集虫态至下一虫态：${SPECIMEN.firstRearingHours.toFixed(1)}小时（用于反推）。`;
     if (nextStage === "adult") {
       const history = document.getElementById("incu-history");
       history.style.display = "block";
-      history.innerHTML = `<b>培养记录（采集至成虫）</b><br>${SPECIMEN.stageTimes
-        .map(
-          ({ from, to, hours }) =>
-            `${STAGE_LABELS[from]} → ${STAGE_LABELS[to]}：${hours.toFixed(1)}小时`,
-        )
-        .join(
-          "<br>",
-        )}<br><b>总用时：${SPECIMEN.rearingHours.toFixed(1)}小时</b>`;
+      history.innerHTML = `<b>培养记录（采集至成虫）</b><br>${SPECIMEN.stageTimes.map(({from, to, hours}) =>
+        `${STAGE_LABELS[from]} → ${STAGE_LABELS[to]}：${hours.toFixed(1)}小时`
+      ).join("<br>")}<br><b>总用时：${SPECIMEN.rearingHours.toFixed(1)}小时</b>`;
     }
     updateIncuUI();
     if (nextStage !== "adult") {

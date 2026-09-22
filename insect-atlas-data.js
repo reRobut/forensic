@@ -87,7 +87,7 @@ const INSECT_ATLAS = [
                 images: {
                   larva: "assets/larva/collect_cn.png",
                   adultMale: "assets/cn.png",
-                  adultFemale: "assets/cn.png",
+                  adultFemale: "assets/cnfemale.png",
                 },
                 body: `<b>体型：</b>体长 7–10&nbsp;mm，体色暗绿<br>
 <b>识别要点：</b>足全黑（种名 nigripes 即"黑足"），胸背金属光泽偏暗<hr class="ediv">
@@ -204,7 +204,7 @@ const INSECT_ATLAS = [
                 images: {
                   larva: "assets/larva/collection.png",
                   adultMale: "assets/bp.png",
-                  adultFemale: "assets/bp.png",
+                  adultFemale: "assets/bpfemale.png",
                 },
                 body: `<b>体型：</b>体长 10–15&nbsp;mm，灰黑色，胸背具三条纵行暗纹，腹部呈棋盘状斑纹<br>
 <b>识别要点：</b>卵胎生（直接产出活体一龄幼虫）<hr class="ediv">
@@ -237,7 +237,7 @@ const INSECT_ATLAS = [
                 images: {
                   larva: "assets/larva/collection.png",
                   adultMale: "assets/md.png",
-                  adultFemale: "assets/md.png",
+                  adultFemale: "assets/mdfemale.png",
                 },
                 body: `<b>体型：</b>体长 6–8&nbsp;mm，胸背具四条纵行黑纹<br>
 <b>识别要点：</b>体型明显小于丽蝇科，飞行迅速，是最常见的室内蝇种<hr class="ediv">

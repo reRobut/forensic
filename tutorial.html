@@ -1,4 +1,19 @@
 <style>
+  @font-face {
+    font-family: "PixelFont";
+    src: url("fonts/vt323-latin-400-normal.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "PixelFont";
+    src: url("fonts/vt323-latin-ext-400-normal.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2C60-2C7F, U+A720-A7FF;
+  }
   @import url("https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap");
   * {
     box-sizing: border-box;
@@ -1331,6 +1346,7 @@
     transform-origin: bottom left;
   }
   .tutorial-dialog {
+    font-family: "PixelFont", "Microsoft YaHei", monospace, sans-serif;
     position: absolute;
     bottom: 12px;
     left: 3%;
@@ -1856,8 +1872,13 @@
   </div>
 </div>
 
+<script src="lang.js"></script>
 <script src="insect-atlas-data.js"></script>
 <script src="case-generator.js"></script>
+<script>
+  GameI18n.applyAtlas();
+  GameI18n.start();
+</script>
 
 <script>
   // ── 渲染分类树 ──────────────────────────────────────────
@@ -1936,6 +1957,10 @@
               });
 
               genusList.appendChild(speciesList);
+              if (species.length === 1) {
+                speciesList.classList.add("open");
+                gi.querySelector(".gi-arrow")?.classList.add("open");
+              }
 
               gi.addEventListener("click", () => {
                 const arr = gi.querySelector(".gi-arrow");
@@ -1960,6 +1985,10 @@
           const arr = famHd.querySelector(".tax-arrow");
           const open = genusList.classList.toggle("open");
           arr.classList.toggle("open", open);
+          if (open && soleSpeciesUnder(fam)) {
+            const item = genusList.querySelector(".species-item");
+            item?.click();
+          }
         });
 
         familyList.appendChild(famDiv);
@@ -2010,7 +2039,9 @@
   }
 
   function renderStagePhoto(url, caption, sexIcon, fallbackUrl) {
-    const useCollectionScale = isLarvalProcessImage(url);
+    const useCollectionScale =
+      isLarvalProcessImage(url) ||
+      /(?:^|\/)hi_larva\.png(?:[?#].*)?$/.test(url || "");
     const sizeClass = useCollectionScale ? " collection-scale" : "";
     const sizeOnload = useCollectionScale
       ? ` onload="scaleLarvalProcessImage(this)"`
@@ -2040,7 +2071,8 @@
     const blocks = [];
 
     // 幼虫图块
-    blocks.push(`
+    if (images.larva)
+      blocks.push(`
       <div class="stage-block">
         <div class="stage-block-title">幼虫 · larva</div>
         <div class="stage-row single">
@@ -2061,7 +2093,7 @@
           <div class="stage-block-title">成虫 · adult</div>
           <div class="stage-row stage-pair">
             ${renderStagePhoto(images.adultMale, images.adultMaleCaption, "♂")}
-            ${renderStagePhoto(images.adultFemale, images.adultFemaleCaption, "♀")}
+            ${images.adultFemale ? renderStagePhoto(images.adultFemale, images.adultFemaleCaption, "♀") : ""}
           </div>
         </div>
       `);
@@ -2179,8 +2211,11 @@
     radioOn = !radioOn;
     radio.classList.toggle("is-playing", radioOn);
     radio.setAttribute("aria-pressed", String(radioOn));
-    radio.setAttribute("aria-label", radioOn ? "关闭背景音乐" : "开启背景音乐");
-    radio.title = radioOn ? "关闭背景音乐" : "开启背景音乐";
+    radio.setAttribute(
+      "aria-label",
+      GameI18n.t(radioOn ? "关闭背景音乐" : "开启背景音乐"),
+    );
+    radio.title = GameI18n.t(radioOn ? "关闭背景音乐" : "开启背景音乐");
     if (radioOn) {
       musicStarted = true;
       playRandomTrack();
@@ -2390,6 +2425,14 @@
     }
   }
 
+  function soleSpeciesUnder(node) {
+    const families = node.families || [node];
+    const all = families.flatMap((f) =>
+      (f.genera || []).flatMap((g) => g.species || []),
+    );
+    return all.length === 1 ? all[0] : null;
+  }
+
   function onOrderChange() {
     const orderId = document.getElementById("sel-order").value;
     const famSel = document.getElementById("sel-family");
@@ -2424,6 +2467,11 @@
     genSel.innerHTML = '<option value="">— 先选科 —</option>';
     spSel0.disabled = true;
     spSel0.innerHTML = '<option value="">— 先选属 —</option>';
+    if (soleSpeciesUnder(order)) {
+      const fam = order.families.find((f) => soleSpeciesUnder(f));
+      famSel.value = fam.id;
+      onFamilyChange();
+    }
   }
 
   function onFamilyChange() {
@@ -2460,8 +2508,10 @@
       genSel.appendChild(opt);
     });
 
-    if (fam.genera.length === 1) {
-      genSel.value = fam.genera[0].id;
+    if (fam.genera.length === 1 || soleSpeciesUnder(fam)) {
+      genSel.value = (
+        fam.genera.find((g) => (g.species || []).length) || fam.genera[0]
+      ).id;
       onGenusChange();
     }
   }
@@ -2498,6 +2548,7 @@
       opt.textContent = `${sp.name}（${sp.latin}）`;
       spSel.appendChild(opt);
     });
+    if (genus.species.length === 1) spSel.value = genus.species[0].id;
   }
 
   function togglePmiHint() {
@@ -2801,12 +2852,12 @@
   // ── 标本状态 与 活体培养 ────────────────────────────────
   const STAGE_ORDER = ["egg", "l1", "l2", "l3", "pupa", "adult"];
   const STAGE_LABELS = {
-    egg: "卵",
-    l1: "一龄幼虫",
-    l2: "二龄幼虫",
-    l3: "三龄幼虫",
-    pupa: "蛹",
-    adult: "成虫",
+    egg: GameI18n.t("卵"),
+    l1: GameI18n.t("一龄幼虫"),
+    l2: GameI18n.t("二龄幼虫"),
+    l3: GameI18n.t("三龄幼虫"),
+    pupa: GameI18n.t("蛹"),
+    adult: GameI18n.t("成虫"),
   };
   const CASE_TEMP_MAX = FORENSIC_CASE.tempMax;
   const CASE_TEMP_MIN = FORENSIC_CASE.tempMin;
@@ -2872,8 +2923,12 @@
     document.getElementById("case-file-id").textContent = c.id;
     document.getElementById("form-case-id").textContent = c.id;
     document.getElementById("case-discovered-at").textContent = discoveredText;
-    document.getElementById("case-corpse-state").textContent = c.corpseState;
-    document.getElementById("case-environment").textContent = c.sceneLabel;
+    document.getElementById("case-corpse-state").textContent = GameI18n.t(
+      c.corpseState,
+    );
+    document.getElementById("case-environment").textContent = GameI18n.t(
+      c.sceneLabel,
+    );
     document.getElementById("case-temp-max").textContent = `${c.tempMax} °C`;
     document.getElementById("case-temp-min").textContent = `${c.tempMin} °C`;
     setSpecimenImage(
@@ -3110,13 +3165,16 @@
 
   // 新手指导：选择会播放对应回应，操作节点由桌面事件解锁。
   const tutorialLines = [
-    ["你……你好。我是负责新人指导的Apolly。", "normal"],
+    [
+      "你……你好。我是负责新人指导的阿玻莉（Apolly），你可以叫我阿玻（Apo）。",
+      "normal",
+    ],
     ["啊……我明明不擅长和陌生人打交道的……", "normal"],
     [
       "总之……先互相了解一下吧。你害怕虫子吗？",
       "normal",
       [
-        ["A. 害怕", "也是呢，很多人都害怕", "awk"],
+        ["A. 害怕", "也是呢，很多人都害怕", "normal"],
         ["B. 不是很害怕", "哦？那你胆子还挺大的嘛", "normal"],
         [
           "C. 虫虫可爱捏",
@@ -3212,6 +3270,35 @@
     ["如果觉得昆虫图鉴窗口太小，可以拉动右下角，扩大窗口", "normal"],
     ["那要说的就是这些，我期待你的表现哦新人！", "normal"],
   ];
+  if (GameI18n.language() !== "zh-CN") {
+    for (const line of tutorialLines) {
+      line[0] =
+        GameI18n.language() === "en"
+          ? GameTutorialEnglish[line[0]] || line[0]
+          : (GameTutorialMore[GameI18n.language()] || {})[line[0]] ||
+            GameI18n.t(line[0]);
+      if (line[2])
+        for (const choice of line[2]) {
+          choice[0] =
+            GameI18n.language() === "en"
+              ? GameTutorialEnglish[choice[0]] || choice[0]
+              : (GameTutorialMore[GameI18n.language()] || {})[choice[0]] ||
+                GameI18n.t(choice[0]);
+          if (choice[1])
+            choice[1] =
+              GameI18n.language() === "en"
+                ? GameTutorialEnglish[choice[1]] || choice[1]
+                : (GameTutorialMore[GameI18n.language()] || {})[choice[1]] ||
+                  GameI18n.t(choice[1]);
+          if (choice[3])
+            choice[3] =
+              GameI18n.language() === "en"
+                ? GameTutorialEnglish[choice[3]] || choice[3]
+                : (GameTutorialMore[GameI18n.language()] || {})[choice[3]] ||
+                  GameI18n.t(choice[3]);
+        }
+    }
+  }
   let tutorialIndex = 0;
   let tutorialReplies = [];
   let tutorialWaiting = null;
@@ -3228,7 +3315,8 @@
     if (target.closest("#tutorial-skip, .tutorial-skip")) return true;
     if (!tutorialWaiting) return Boolean(target.closest("#tutorial-dialog"));
     if (tutorialWaiting === "box") return Boolean(target.closest("#box-item"));
-    if (tutorialWaiting === "atlas") return Boolean(target.closest("#book-obj"));
+    if (tutorialWaiting === "atlas")
+      return Boolean(target.closest("#book-obj"));
     if (tutorialWaiting === "dish") {
       if (event.type === "dragstart" || event.type === "pointerdown")
         return Boolean(target.closest("#spec-card"));
@@ -3238,11 +3326,16 @@
     return false;
   }
   ["pointerdown", "click", "dragstart", "dragover", "drop", "keydown"].forEach(
-    (type) => document.addEventListener(type, (event) => {
-      if (tutorialAllowsInput(event)) return;
-      event.preventDefault();
-      event.stopImmediatePropagation();
-    }, true),
+    (type) =>
+      document.addEventListener(
+        type,
+        (event) => {
+          if (tutorialAllowsInput(event)) return;
+          event.preventDefault();
+          event.stopImmediatePropagation();
+        },
+        true,
+      ),
   );
   function finishTutorialTyping() {
     clearTimeout(tutorialTypingTimer);
@@ -3299,6 +3392,11 @@
     document.getElementById("tutorial-dialog").style.display = task
       ? "none"
       : "block";
+    document.getElementById("tutorial-portrait").style.display = choices
+      ? "none"
+      : "";
+    document.querySelector("#tutorial-dialog .tutorial-name").style.display =
+      choices ? "none" : "";
     if (choices)
       choices.forEach(([label, ...reply]) => {
         const button = document.createElement("button");
@@ -3332,6 +3430,9 @@
     }
     tutorialTypingTimer = setTimeout(typeNext, 38);
     document.getElementById("tutorial-portrait").src = "Apo/" + mood + ".png";
+    document.getElementById("tutorial-portrait").style.display = "";
+    document.querySelector("#tutorial-dialog .tutorial-name").style.display =
+      "";
     document.getElementById("tutorial-options").replaceChildren();
     document.getElementById("tutorial-options").style.display = "none";
     document.getElementById("tutorial-dialog").style.display = "block";

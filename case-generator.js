@@ -51,6 +51,10 @@
     "chrysomya-nigripes",
     "sarcophaga-spp",
   ]);
+  const ECOLOGY_WARNING_CASE_SPECIES = new Set([
+    "chrysomya-rufifacies",
+    "chrysomya-albiceps",
+  ]);
 
   function allSpecies() {
     const result = [];
@@ -131,7 +135,11 @@ ${rows.join("<br>")}`;
         !species.images ||
         !ASSET_PREFIX[species.id] ||
         !ecology ||
-        ecology.pmiPolicy !== "development"
+        !(
+          ecology.pmiPolicy === "development" ||
+          (ecology.pmiPolicy === "developmentWithEcologyWarning" &&
+            ECOLOGY_WARNING_CASE_SPECIES.has(species.id))
+        )
       ) return;
       const arrivalProfile = ecology.arrival[sceneProfile];
       if (!arrivalProfile) return;
@@ -237,9 +245,9 @@ ${rows.join("<br>")}`;
       collectedStage: selected.stage,
       assetPrefix: ASSET_PREFIX[selected.species.id],
       adultImage:
-        selected.species.images.adultMale ||
-        selected.species.images.adult ||
-        selected.species.images.adultFemale,
+        randomItem([selected.species.images.adultMale, selected.species.images.adultFemale].filter(Boolean).length
+          ? [selected.species.images.adultMale, selected.species.images.adultFemale].filter(Boolean)
+          : [selected.species.images.adult].filter(Boolean)),
       sceneProfile,
       sceneLabel: sceneProfile === "outdoorExposed" ? "室外暴露" : "室内可进入",
       colonizationRole: selected.species.forensicEcology.colonizationRole,
