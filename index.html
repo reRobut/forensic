@@ -144,6 +144,14 @@
         filter: brightness(0.95);
       }
 
+      .pixel-btn:disabled,
+      .pixel-btn:disabled:hover,
+      .pixel-btn:disabled:active {
+        filter: grayscale(1) brightness(0.65);
+        transform: none;
+        cursor: not-allowed;
+      }
+
       /* ===== 弹窗通用样式：黑底白字像素风 ===== */
       .modal-overlay {
         position: fixed;
@@ -277,6 +285,17 @@
         color: #ffcf6b;
       }
 
+      .confirm-actions {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .confirm-actions .lang-option {
+        min-width: 110px;
+      }
+
       /* Credits 内容：沿用全局 PixelFont（VT323），长段落阅读体验比块状像素字体更好 */
       .credits-body {
         font-size: 22px;
@@ -327,6 +346,20 @@
             语言选择 / LANGUAGE
           </div>
           <div class="lang-grid" id="lang-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 新游戏确认弹窗 -->
+    <div class="modal-overlay" id="work-modal" role="dialog" aria-modal="true" aria-labelledby="work-modal-title">
+      <div class="modal-frame">
+        <div class="modal-box">
+          <button class="modal-close-btn" id="work-modal-close" type="button" aria-label="Close">X</button>
+          <div class="modal-title" id="work-modal-title">确定开始新的游戏吗？旧的存档将被覆盖</div>
+          <div class="confirm-actions">
+            <button class="lang-option" id="work-cancel" type="button">取消</button>
+            <button class="lang-option" id="work-confirm" type="button">确定</button>
+          </div>
         </div>
       </div>
     </div>
@@ -439,6 +472,18 @@
       ];
 
       const LANGUAGE_KEY = "forensic-entomology-language-v1";
+      const WORK_CONFIRM_TEXT = {
+        "zh-CN": ["确定开始新的游戏吗？旧的存档将被覆盖", "取消", "确定"],
+        "zh-TW": ["確定開始新遊戲嗎？舊的存檔將被覆蓋", "取消", "確定"],
+        en: ["Start a new game? Your existing save will be overwritten.", "Cancel", "Confirm"],
+        ru: ["Начать новую игру? Старое сохранение будет перезаписано.", "Отмена", "Подтвердить"],
+        pt: ["Começar um novo jogo? O progresso salvo será substituído.", "Cancelar", "Confirmar"],
+        de: ["Ein neues Spiel starten? Der bisherige Spielstand wird überschrieben.", "Abbrechen", "Bestätigen"],
+        fr: ["Commencer une nouvelle partie ? La sauvegarde actuelle sera écrasée.", "Annuler", "Confirmer"],
+        es: ["¿Empezar una partida nueva? Se sobrescribirá la partida guardada.", "Cancelar", "Confirmar"],
+        ja: ["新しいゲームを始めますか？以前のセーブデータは上書きされます。", "キャンセル", "決定"],
+        ko: ["새 게임을 시작할까요? 기존 저장 데이터가 덮어쓰여집니다.", "취소", "확인"],
+      };
       let currentLang = "zh-CN";
       try {
         const saved = localStorage.getItem(LANGUAGE_KEY);
@@ -451,6 +496,8 @@
       const langModal = document.getElementById("lang-modal");
       const langModalTitle = document.getElementById("lang-modal-title");
       const langGrid = document.getElementById("lang-grid");
+      const workModal = document.getElementById("work-modal");
+      const continueButton = document.getElementById("btn-continue");
 
       const creditsModal = document.getElementById("credits-modal");
       const creditsModalTitle = document.getElementById("credits-modal-title");
@@ -486,6 +533,10 @@
         // 弹窗标题文字也跟随当前语言（若弹窗当前是打开状态）
         langModalTitle.textContent = lang.ui.langTitle;
         creditsModalTitle.textContent = lang.ui.creditsTitle;
+        const confirmText = WORK_CONFIRM_TEXT[langKey];
+        document.getElementById("work-modal-title").textContent = confirmText[0];
+        document.getElementById("work-cancel").textContent = confirmText[1];
+        document.getElementById("work-confirm").textContent = confirmText[2];
         renderLangGrid();
       }
 
@@ -531,6 +582,26 @@
       }
 
       const GAME_SAVE_KEY = "forensic-entomology-total-exp-v1";
+      const STORY_KEY = "forensic-entomology-apo-stories-v1";
+      const AFFECTION_KEY = "forensic-entomology-apo-affection-v1";
+      const STORY_FLAGS_KEY = "forensic-entomology-apo-flags-v1";
+      function hasSave() {
+        try {
+          const value = localStorage.getItem(GAME_SAVE_KEY);
+          return value !== null && value.trim() !== "" && Number.isFinite(Number(value));
+        } catch (_) {
+          return false;
+        }
+      }
+
+      function updateContinueButton() {
+        continueButton.disabled = !hasSave();
+      }
+
+      function closeWorkModal() {
+        workModal.classList.remove("is-open");
+      }
+
       document
         .getElementById("btn-study")
         .addEventListener("click", function () {
@@ -540,20 +611,25 @@
       document
         .getElementById("btn-work")
         .addEventListener("click", function () {
+          workModal.classList.add("is-open");
+        });
+
+      document.getElementById("work-confirm").addEventListener("click", function () {
           try {
-            localStorage.removeItem(GAME_SAVE_KEY);
+            [GAME_SAVE_KEY, STORY_KEY, AFFECTION_KEY, STORY_FLAGS_KEY].forEach(
+              (key) => localStorage.removeItem(key),
+            );
           } catch (_) {}
           window.location.href = "desk.html";
         });
 
+      document.getElementById("work-cancel").addEventListener("click", closeWorkModal);
+      document.getElementById("work-modal-close").addEventListener("click", closeWorkModal);
+
       document
         .getElementById("btn-continue")
         .addEventListener("click", function () {
-          let savedExp = null;
-          try {
-            savedExp = localStorage.getItem(GAME_SAVE_KEY);
-          } catch (_) {}
-          if (savedExp !== null && Number.isFinite(Number(savedExp))) {
+          if (hasSave()) {
             window.location.href = "desk.html";
           } else {
             alert(
@@ -588,6 +664,9 @@
       langModal.addEventListener("click", function (e) {
         if (e.target === langModal) closeLangModal();
       });
+      workModal.addEventListener("click", function (e) {
+        if (e.target === workModal) closeWorkModal();
+      });
       creditsModal.addEventListener("click", function (e) {
         if (e.target === creditsModal) closeCreditsModal();
       });
@@ -596,10 +675,13 @@
       document.addEventListener("keydown", function (e) {
         if (e.key === "Escape") {
           closeLangModal();
+          closeWorkModal();
           closeCreditsModal();
         }
       });
       applyLanguage(currentLang);
+      updateContinueButton();
+      window.addEventListener("pageshow", updateContinueButton);
     </script>
   </body>
 </html>
